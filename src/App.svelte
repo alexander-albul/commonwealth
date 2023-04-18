@@ -30,7 +30,7 @@
 	<svelte:component this={tabs[$uiState.activeTab].component}/>
 </div>
 
-
+<b style="color: red">Тестовая веткаа</b>
 
 <style>	
 	.header{
