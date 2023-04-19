@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export const uiState = writable({
-  activeTab: 0,
+  activeTab: 1,
 });
 
 export const globalData = {

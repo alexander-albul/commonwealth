@@ -3,9 +3,7 @@
 	import {uiState, globalData, testQuestions} from '../../stores/store.js'
 	import Button from '../Button.svelte'
 	import Icon from '../Icon.svelte'
-	import Textarea from '../Textarea.svelte'
-	import Toggle from '../Toggle.svelte'
-	import SegmentedControl from '../SegmentedControl.svelte'
+	import Question from '../Question.svelte'
 	
 	function addQuestion() {
 		$testQuestions = [...$testQuestions, {
@@ -22,8 +20,8 @@
 <div class="questions-tab-content">
 	<div class="main">
 		{#each $testQuestions as question, i}
-			<div class="question-card">
-				
+			<Question question={question} i={i}/>
+			<!-- <div class="question-card">
 				<h2 id="question-{i}">Вопрос {i + 1}</h2>
 				<Textarea bind:value={question.question} placeholder="Текст вопроса" initialSize="96px"/>
 				<SegmentedControl items={globalData.testFormats} 
@@ -51,7 +49,7 @@
 				</div>
 				{/if}
 
-			</div>
+			</div> -->
 		{/each}
 		<div class="buttons-wrap">
 			<Button title="Добавить вопрос" 
@@ -102,16 +100,6 @@
 		width: 100%;
 		min-width: 0;
 		padding-top: 24px;
-	}
-		
-	.question-card{
-		display: flex;
-		flex-direction: column;
-		gap: 28px;
-		padding: 36px;
-		background: white;
-		border: 1px solid var(--gray-300);
-		border-radius: 8px;
 	}
 	
 	.sidebar{
