@@ -38,7 +38,7 @@
   {/if}
 </div>
 
-<style>	
+<style>
 	.question-card{
 		display: flex;
 		flex-direction: column;
@@ -47,5 +47,23 @@
 		background: white;
 		border: 1px solid var(--gray-300);
 		border-radius: 8px;
+	}
+  
+	h2{
+    margin-top: -56px;
+    padding-top: 56px;
+		font-size: 22px;
+		font-weight: 500;
+	}
+	
+	.variants-wrap{
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	
+	.variant{
+		display: flex;
+		gap: 12px;
 	}
 </style>
