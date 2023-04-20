@@ -3,12 +3,12 @@
 	import Button from './lib/Button.svelte'
 	import Tabs from './lib/Tabs.svelte'
 	import InfoTab from './lib/tabs/InfoTab.svelte'
-	import QuestionsTab from './lib/tabs/QuestionsTab.svelte'
+	import QuestionsTabA from './lib/tabs/QuestionsTabA.svelte'
 	import ScoreTab from './lib/tabs/ScoreTab.svelte'
 	 
 	let tabs = [
 		{title: 'Информация', component: InfoTab},
-		{title: 'Вопросы', component: QuestionsTab},
+		{title: 'Вопросы', component: QuestionsTabA},
 		{title: 'Баллы', component: ScoreTab},
 		]
 </script>
