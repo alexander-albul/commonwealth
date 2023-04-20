@@ -25,7 +25,8 @@
 <style>
 	.tabs{
 		display: flex;
-		padding-inline: 16px;overflow: hidden;
+		padding-inline: 16px;
+		overflow: hidden;
 	}
 	
 	.tab{
