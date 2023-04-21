@@ -10,11 +10,11 @@
 </script>
 
 <div class="question-card">
-  <h2 id="question-{i}">Вопрос {i + 1}</h2>
+  <h2 id="question-{i}">{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}` }</h2>
   <Textarea bind:value={question.question} placeholder="Текст вопроса" initialSize="96px"/>
   <SegmentedControl items={globalData.testFormats} 
                     name="format-{i}" 
-                    bind:selectedItem={$testQuestions[i].format} 
+                    bind:selectedItem={$testQuestions[i].format}
                     --width="350px"
   />
 
@@ -27,7 +27,8 @@
       </div>
     {/each}
     <Button title="Добавить вариант" 
-            type="secondary" 
+            type="secondary"
+						--width="200px"
             on:click={() => question.variants = [...question.variants, '']}
     />
   </div>
@@ -54,6 +55,10 @@
     padding-top: 56px;
 		font-size: 22px;
 		font-weight: 500;
+    
+		white-space: nowrap; 
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 	
 	.variants-wrap{

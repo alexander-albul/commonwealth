@@ -2,14 +2,9 @@ import { writable } from 'svelte/store';
 
 export const uiState = writable({
   activeTab: 1,
-  questionTabVariant: 0,
+  questionTabVariant: 'b',
+  selectedQuestion: 0,
 });
-
-export const viewVariant = [
-  { view: 'tabs', questionTabVariant: 'a' },
-  { view: 'tabs', questionTabVariant: 'b' },
-  { view: 'common-sidebar' },
-];
 
 export const globalData = {
   audience: ['8 класс', '9 класс', '10 класс', 'Студенты'],

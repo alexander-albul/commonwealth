@@ -7,28 +7,28 @@
 	
 	function addQuestion() {
 		$testQuestions = [...$testQuestions, {
-		question: '',
-		format: 'variants',
-		variants: ['', '',],
-		correctVariants: [],
-		freeAnswerCommentary: '',
-	}]
-	} 
+			question: '',
+			format: 'variants',
+			variants: ['', '',],
+			correctVariants: [],
+			freeAnswerCommentary: '',
+		}]
+		$uiState.selectedQuestion = $testQuestions.length - 1
+	}
+
+  $: selectedQuestion = $uiState.selectedQuestion
 </script>
+
 
 
 <div class="questions-tab-content">
 	<div class="main">
-		{#each $testQuestions as question, i}
-			<Question bind:question={question} i={i}/>
-		{/each}
-		<div class="buttons-wrap">
-			<Button title="Добавить вопрос" 
-							type="white" 
-							size="large"
-							--width="100%"
-							on:click={addQuestion}
+		{#key selectedQuestion}
+			<Question question={$testQuestions[$uiState.selectedQuestion]} 
+								bind:i={selectedQuestion}
 			/>
+		{/key}
+		<div class="buttons-wrap">
 			<Button title="Распределить баллы"
 							size="large"
 							--width="100%"
@@ -40,11 +40,21 @@
 	<div class="sidebar">
 		<div class="sidebar-questions-wrap">
 			{#each $testQuestions as question, i}
-				<a href="#question-{i}" class="sidebar-question">
+				<button class="sidebar-question" 
+                class:active={selectedQuestion === i}
+                on:click={() => $uiState.selectedQuestion = i}
+        >
 					{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}` }
-				</a>
+				</button>
 			{/each}
 		</div>
+   
+    <Button title="Добавить вопрос" 
+            type="white" 
+            size="large"
+            --width="100%"
+            on:click={addQuestion}
+    />
 	</div>
 	
 </div>
@@ -90,19 +100,31 @@
 	}
 	
 	.sidebar-questions-wrap{
+    margin-bottom: 16px;
+		padding: 8px;
+		background: white;
 		border: 1px solid var(--gray-300);
 		border-radius: 8px;
-		background: white;
+    overflow: hidden;
 	}
 
 	.sidebar-question{
 		display: block;
-		padding: 16px;
+    width: 100%;
+		padding: 8px;
 		white-space: nowrap; 
 		text-overflow: ellipsis;
 		overflow: hidden;
+    text-align: left;
 		color: var(--gray-900);
+    background: transparent;
+    border: none;
+		border-radius: 6px;
 	}
+
+  .sidebar-question.active{
+    background: var(--gray-200);
+  }
 
 	.buttons-wrap{
 		display: flex;
