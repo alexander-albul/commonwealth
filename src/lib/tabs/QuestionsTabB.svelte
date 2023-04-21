@@ -18,9 +18,15 @@
   $: selectedQuestion = $uiState.selectedQuestion
 </script>
 
+
+
 <div class="questions-tab-content">
 	<div class="main">
-			<Question bind:question={$testQuestions[selectedQuestion]} i={$uiState.selectedQuestion}/>
+		{#key selectedQuestion}
+			<Question question={$testQuestions[$uiState.selectedQuestion]} 
+								bind:i={selectedQuestion}
+			/>
+		{/key}
 		<div class="buttons-wrap">
 			<Button title="Распределить баллы"
 							size="large"
@@ -66,6 +72,7 @@
 		width: 100%;
 		min-width: 0;
 		padding-top: 24px;
+		padding-bottom: 24px;
 	}
 	
 	.sidebar{
@@ -93,25 +100,25 @@
 	
 	.sidebar-questions-wrap{
     margin-bottom: 16px;
+		padding: 8px;
+		background: white;
 		border: 1px solid var(--gray-300);
 		border-radius: 8px;
-		background: white;
     overflow: hidden;
-		padding: 8px;
 	}
 
 	.sidebar-question{
 		display: block;
     width: 100%;
 		padding: 8px;
-		border-radius: 6px;
 		white-space: nowrap; 
 		text-overflow: ellipsis;
 		overflow: hidden;
-		color: var(--gray-900);
-    border: none;
     text-align: left;
+		color: var(--gray-900);
     background: transparent;
+    border: none;
+		border-radius: 6px;
 	}
 
   .sidebar-question.active{

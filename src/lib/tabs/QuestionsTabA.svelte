@@ -63,6 +63,7 @@
 		width: 100%;
 		min-width: 0;
 		padding-top: 24px;
+		padding-bottom: 24px;
 	}
 	
 	.sidebar{

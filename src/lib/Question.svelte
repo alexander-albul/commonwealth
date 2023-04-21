@@ -14,7 +14,8 @@
   <Textarea bind:value={question.question} placeholder="Текст вопроса" initialSize="96px"/>
   <SegmentedControl items={globalData.testFormats} 
                     name="format-{i}" 
-                    bind:selectedItem={$testQuestions[i].format} 
+                    bind:selectedItem={$testQuestions[i].format}
+										on:change
                     --width="350px"
   />
 
