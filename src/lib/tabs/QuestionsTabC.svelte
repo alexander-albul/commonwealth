@@ -28,37 +28,11 @@
 								bind:i={selectedQuestion}
 			/>
 		{/key}
-		<div class="buttons-wrap">
-			<Button title="Распределить баллы"
-							size="large"
-							--width="100%"
-							on:click={() => $uiState.activeTab = 2}
-			/>
 	</div>
-	</div>
-		
-	<div class="sidebar">
-		<div class="sidebar-questions-wrap">
-			{#each $testQuestions as question, i}
-				<button class="sidebar-question" 
-                class:active={selectedQuestion === i}
-                on:click={() => $uiState.selectedQuestion = i}
-        >
-					{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}` }
-				</button>
-			{/each}
-		</div>
-   
-    <Button title="Добавить вопрос" 
-            type="white" 
-            size="large"
-            --width="100%"
-            on:click={addQuestion}
-    />
-	</div>
-	
 </div>
 	
+
+
 <style>
 	.questions-tab-content{
 		display: flex;

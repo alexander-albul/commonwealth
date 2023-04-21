@@ -1,8 +1,9 @@
 import { writable } from 'svelte/store';
 
 export const uiState = writable({
-  activeTab: 1,
-  questionTabVariant: 'b',
+  activeTab: 0,
+  questionTabVariant: 'a',
+  viewVariant: 'sidebar',
   selectedQuestion: 0,
 });
 

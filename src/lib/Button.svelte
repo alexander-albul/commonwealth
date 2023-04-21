@@ -25,6 +25,7 @@
 		line-height: 20px;
 		border-radius: 8px;
 		cursor: pointer;
+		user-select: none;
 	}
 	
 	button.primary{
