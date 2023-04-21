@@ -4,7 +4,11 @@
 	
 	let autosum = true;
 	
+	let sum
 
+	$: if (autosum) {
+		sum = $testQuestions.reduce((acc, question) => acc + question.score, 0)
+	}
 
 </script>
 
@@ -28,13 +32,13 @@
 			<div>Максимальное количество баллов:</div>
 			{#if autosum}
 			<input type="number" 
-						 value={$testQuestions.reduce((acc, question) => acc + question.score, 0)}
-						 min={autosum ? $testQuestions.length : 0} 
+						 value={sum}
+						 min={autosum ? $testQuestions.length : 1} 
 						 disabled
 			>
 			{:else}
 			<input type="number" 
-						 value={$testQuestions.reduce((acc, question) => acc + question.score, 0)}
+						 value={sum}
 						 min={$testQuestions.length} 
 			>
 			{/if}
