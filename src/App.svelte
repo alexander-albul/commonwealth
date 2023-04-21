@@ -30,11 +30,6 @@
 		<Tabs bind:activeTab={$uiState.activeTab} items={tabs}/>
 	</div>
 
-	<div style="display: flex">
-		<pre>{JSON.stringify($uiState, null, 2)}
-		<pre>{JSON.stringify($testQuestions, null, 2)}
-	</div>
-
 	<div class="tab-content">
 		<svelte:component this={tabs[$uiState.activeTab].component}/>
 	</div>

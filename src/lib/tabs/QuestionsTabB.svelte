@@ -7,12 +7,13 @@
 	
 	function addQuestion() {
 		$testQuestions = [...$testQuestions, {
-		question: '',
-		format: 'variants',
-		variants: ['', '',],
-		correctVariants: [],
-		freeAnswerCommentary: '',
-	}]
+			question: '',
+			format: 'variants',
+			variants: ['', '',],
+			correctVariants: [],
+			freeAnswerCommentary: '',
+		}]
+		$uiState.selectedQuestion = $testQuestions.length - 1
 	}
 
   $: selectedQuestion = $uiState.selectedQuestion

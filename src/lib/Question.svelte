@@ -15,7 +15,6 @@
   <SegmentedControl items={globalData.testFormats} 
                     name="format-{i}" 
                     bind:selectedItem={$testQuestions[i].format}
-										on:change
                     --width="350px"
   />
 
@@ -28,7 +27,8 @@
       </div>
     {/each}
     <Button title="Добавить вариант" 
-            type="secondary" 
+            type="secondary"
+						--width="200px"
             on:click={() => question.variants = [...question.variants, '']}
     />
   </div>
