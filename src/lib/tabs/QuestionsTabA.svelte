@@ -12,6 +12,7 @@
 		variants: ['', '',],
 		correctVariants: [],
 		freeAnswerCommentary: '',
+		score: 1,
 	}]
 	} 
 </script>

@@ -29,6 +29,11 @@
 			/>
 		{/key}
 	</div>
+  			<Button title="Распределить баллы"
+							size="large"
+							--width="100%"
+							on:click={() => $uiState.activeTab = 2}
+			/>
 </div>
 	
 
@@ -36,7 +41,7 @@
 <style>
 	.questions-tab-content{
 		display: flex;
-		gap: 24px;
+    flex-direction: column;
 		align-items: start;
 	}
 	

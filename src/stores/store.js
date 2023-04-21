@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export const uiState = writable({
   activeTab: 0,
   questionTabVariant: 'a',
-  viewVariant: 'sidebar',
+  viewVariant: 'tabs',
   selectedQuestion: 0,
 });
 
@@ -40,5 +40,6 @@ export const testQuestions = writable([
     variants: ['', ''],
     correctVariants: [],
     freeAnswerCommentary: '',
+    score: 1,
   },
 ]);

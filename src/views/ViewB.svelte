@@ -20,6 +20,7 @@
 			variants: ['', '',],
 			correctVariants: [],
 			freeAnswerCommentary: '',
+      score: 1,
 		}]
 		$uiState.selectedQuestion = $testQuestions.length - 1
 	}
@@ -170,7 +171,6 @@
     background: white;
 		padding: 12px;
     text-align: left;
-    font-weight: 500;
   }
 
   .sidebar-group{
@@ -204,6 +204,7 @@
 
   .sidebar-item.active,
   .sidebar-question.active{
+    font-weight: 500;
     background: var(--gray-200);
   }
 </style>
