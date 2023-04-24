@@ -65,7 +65,9 @@
 		padding: 10px 16px; 
 		line-height: 24px; 
 		border-radius: 6px;
-		box-shadow: 0 0 1px var(--gray-300);
+		background-color: var(--gray-100);
+		/* box-shadow: 0 0 1px var(--gray-300); */
+		border: none;
 		box-sizing: border-box;
 		overflow-y: hidden;
 		resize: vertical;

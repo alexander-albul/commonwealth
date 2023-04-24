@@ -1,5 +1,6 @@
 <script>
 	import {uiState, globalData, testInfo, testQuestions} from '../../stores/store.js'
+	import Button from '../../lib/Button.svelte'
 	import Question from '../../lib/Question.svelte'
 	
 	let autosum = true;
@@ -49,6 +50,11 @@
 			<label>
 	</div>
 </div>
+	<Button title="Отправить на проверку"
+			size="large"
+			--width="100%"
+			on:click={() => $uiState.activeTab = 2}
+	/>
 
 <pre>{JSON.stringify($testQuestions, null, 2)}</pre>
 

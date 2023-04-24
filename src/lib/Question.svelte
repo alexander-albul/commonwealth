@@ -27,7 +27,7 @@
       </div>
     {/each}
     <Button title="Добавить вариант" 
-            type="secondary"
+            type="white"
 						--width="200px"
             on:click={() => question.variants = [...question.variants, '']}
     />
