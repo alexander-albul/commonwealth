@@ -31,7 +31,7 @@
 						style:--initial-size={initialSize}
 	/>
 	{#if hasButton}
-	<button on:click={()=>alert('click')}>
+	<button on:click={()=>alert('Click')}>
 		<Icon type="trash"/>
 	</button>
 	{/if}
@@ -54,6 +54,9 @@
 		background: transparent;
 		border: none;
 		border-radius: 8px;
+		opacity: 0;
+		cursor: pointer;
+		transition: opacity .2s;
 	}
 	
 	textarea{
@@ -75,5 +78,9 @@
 	
 	textarea.has-button{
 		padding-right: 44px;
+	}
+
+	.textarea-wrap:hover button{
+		opacity: 1;
 	}
 </style>

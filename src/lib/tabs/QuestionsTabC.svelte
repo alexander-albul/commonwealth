@@ -12,7 +12,9 @@
 			variants: ['', '',],
 			correctVariants: [],
 			freeAnswerCommentary: '',
+			score: 1,
 		}]
+		
 		$uiState.selectedQuestion = $testQuestions.length - 1
 	}
 
