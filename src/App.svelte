@@ -11,7 +11,7 @@
 {/if}
 
 
-<div style="position: fixed; bottom: 0; font-family: monospace; z-index: 99; background-color: var(--gray-100); padding: 16px;">
+<div class="view-settings">
 	<b>Навигация</b>
 	<label>
 		<input type="radio" bind:group={$uiState.viewVariant} value="tabs"/>
@@ -34,3 +34,13 @@
 	{/if}
 </div>
 
+<style>
+	.view-settings{
+		position: fixed; 
+		bottom: 0; 
+		padding: 16px;
+		font-family: monospace; 
+		background-color: var(--gray-100); 
+		z-index: 99; 
+	}
+</style>
