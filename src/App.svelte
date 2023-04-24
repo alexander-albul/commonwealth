@@ -14,12 +14,12 @@
 <div class="view-settings">
 	<b>Навигация</b>
 	<label>
-		<input type="radio" bind:group={$uiState.viewVariant} value="tabs"/>
-		Вкладки
-	</label>
-	<label>
 		<input type="radio" bind:group={$uiState.viewVariant} value="sidebar"/>
 		Сайдбар
+	</label>
+	<label>
+		<input type="radio" bind:group={$uiState.viewVariant} value="tabs"/>
+		Вкладки
 	</label>
 	{#if $uiState.viewVariant === "tabs"}
 		<b style="margin-left: 24px">Показывать вопросы:</b>
@@ -33,6 +33,8 @@
 		</label>
 	{/if}
 </div>
+
+
 
 <style>
 	.view-settings{
