@@ -12,6 +12,7 @@
 			variants: ['', '',],
 			correctVariants: [],
 			freeAnswerCommentary: '',
+			score: 1,
 		}]
 		$uiState.selectedQuestion = $testQuestions.length - 1
 	}
@@ -24,7 +25,7 @@
 <div class="questions-tab-content">
 	<div class="main">
 		{#key selectedQuestion}
-			<Question question={$testQuestions[$uiState.selectedQuestion]} 
+			<Question bind:question={$testQuestions[$uiState.selectedQuestion]} 
 								bind:i={selectedQuestion}
 			/>
 		{/key}

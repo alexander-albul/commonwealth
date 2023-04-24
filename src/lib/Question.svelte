@@ -55,7 +55,6 @@
     padding-top: 56px;
 		font-size: 22px;
 		font-weight: 500;
-    
 		white-space: nowrap; 
 		text-overflow: ellipsis;
 		overflow: hidden;

@@ -1,87 +1,48 @@
 <script>
-	import {uiState, globalData, testInfo, testQuestions} from './stores/store.js'
-	import Button from './lib/Button.svelte'
-	import Tabs from './lib/Tabs.svelte'
-	import InfoTab from './lib/tabs/InfoTab.svelte'
-	import QuestionsTabA from './lib/tabs/QuestionsTabA.svelte'
-	import QuestionsTabB from './lib/tabs/QuestionsTabB.svelte'
-	import SegmentedControl from './lib/SegmentedControl.svelte'
-	import ScoreTab from './lib/tabs/ScoreTab.svelte'
-
-	$: tabs = [
-		{title: 'Информация', component: InfoTab},
-		{title: 'Вопросы', component: $uiState.questionTabVariant == 'a' ? QuestionsTabA : QuestionsTabB},
-		{title: 'Баллы', component: ScoreTab},
-	]
+	import {uiState} from './stores/store.js'
+	import ViewA from './views/ViewA.svelte'
+	import ViewB from './views/ViewB.svelte'
 </script>
 
+{#if $uiState.viewVariant === 'tabs'}
+	<ViewA/>
+{:else}
+	<ViewB/>
+{/if}
+
+
+<div class="view-settings">
+	<b>Навигация</b>
+	<label>
+		<input type="radio" bind:group={$uiState.viewVariant} value="sidebar"/>
+		Сайдбар
+	</label>
+	<label>
+		<input type="radio" bind:group={$uiState.viewVariant} value="tabs"/>
+		Вкладки
+	</label>
+	{#if $uiState.viewVariant === "tabs"}
+		<b style="margin-left: 24px">Показывать вопросы:</b>
+		<label>
+			<input type="radio" bind:group={$uiState.questionTabVariant} value="a">
+			Все сразу
+		</label>
+		<label>
+			<input type="radio" bind:group={$uiState.questionTabVariant} value="b">
+			По одному
+		</label>
+	{/if}
+</div>
 
 
 
-<main>
-	<div class="header">
-		<div class="title-wrap">		
-			<h2>{$testInfo.title}</h2>
-			<div class="header-buttons">
-				<Button type="outline" title="Сохранить"/>
-				<Button title="Отправить на проверку"/>
-			</div>
-		</div>
-		<Tabs bind:activeTab={$uiState.activeTab} items={tabs}/>
-	</div>
-
-	<div class="tab-content">
-		<svelte:component this={tabs[$uiState.activeTab].component}/>
-	</div>
-
-	<div style="position: fixed; bottom: 0; font-family: monospace; z-index: 99; background-color: var(--gray-100); padding: 16px;">
-<b>Показывать вопросы:</b>
-<label>
-	<input type="radio" bind:group={$uiState.questionTabVariant} value="a">Все сразу
-</label>
-<label>
-	<input type="radio" bind:group={$uiState.questionTabVariant} value="b">По одному
-</label>
-</div >
-</main>
-
-
-
-<style>	
-	main{
-		flex-shrink: 0;
-		margin-inline: auto;
-		width: 100%;
-		max-width: 1240px;
-		padding: 28px;
-	}
-
-	.header{
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
-		padding-block: 28px 0;
-		background: white;
-		border: 1px solid var(--gray-300);
-		border-radius: 8px;
-	}
-	
-	.title-wrap{
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 28px;
-		padding-inline: 36px;
-		overflow: hidden;
-	}
-	
-	.header-buttons{
-		flex-shrink: 0;
-		display: flex;
-		gap: 8px;
-	}
-
-	.tab-content{
-		max-height: 100%;
+<style>
+	.view-settings{
+		position: fixed; 
+		bottom: 0; 
+		padding: 16px;
+		font-family: monospace; 
+		background-color: var(--gray-100); 
+		z-index: 99; 
 	}
 </style>
