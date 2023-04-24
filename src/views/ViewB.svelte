@@ -177,10 +177,6 @@
 		border-block: 1px solid var(--gray-300);
   }
 
-  .sidebar-group .sidebar-item{
-    padding-bottom: 8px;
-  }
-
 	.sidebar-questions-wrap{
 		background: white;
     overflow: hidden;
