@@ -56,7 +56,7 @@
 			on:click={() => $uiState.activeTab = 2}
 	/>
 
-<pre>{JSON.stringify($testQuestions, null, 2)}</pre>
+<!-- <pre>{JSON.stringify($testQuestions, null, 2)}</pre> -->
 
 <style>
 	h2{

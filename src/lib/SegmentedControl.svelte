@@ -33,7 +33,7 @@
 	.segmented-control{
 		width: var(--width);
 		display: inline-flex;
-		padding: 3px;
+		padding: 4px;
 		border-radius: 8px;
 		background: var(--gray-100);
 		overflow: hidden;
@@ -64,7 +64,8 @@
 	.segmented-control input[type="radio"]:checked + div{
 		background: white;
 		border: 1px solid rgba(0, 0, 0, 0.1);
-		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+		box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), 
+								0px 1px 2px rgba(0, 0, 0, 0.06);
 	}
 	
 	.segmented-control input[type="radio"]:after{
