@@ -1,9 +1,9 @@
 <script>
 	import {slide} from 'svelte/transition'
-	import {uiState, globalData, testQuestions} from '../../stores/store.js'
-	import Button from '../Button.svelte'
-	import Icon from '../Icon.svelte'
-	import Question from '../Question.svelte'
+	import {uiState, globalData, testQuestions} from '../stores/store.js'
+	import Button from '../components/Button.svelte'
+	import Icon from '../components/Icon.svelte'
+	import Question from '../components/Question.svelte'
 	
 	function addQuestion() {
 		$testQuestions = [...$testQuestions, {

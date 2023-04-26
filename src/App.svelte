@@ -1,7 +1,7 @@
 <script>
-	import {uiState} from './stores/store.js'
-	import ViewA from './views/ViewA.svelte'
-	import ViewB from './views/ViewB.svelte'
+	import {uiState} from './lib/stores/store.js'
+	import ViewA from './lib/views/ViewA.svelte'
+	import ViewB from './lib/views/ViewB.svelte'
 </script>
 
 {#if $uiState.viewVariant === 'tabs'}

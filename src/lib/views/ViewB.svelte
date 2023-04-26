@@ -1,11 +1,11 @@
 <script>
 	import {uiState, globalData, testInfo, testQuestions} from '../stores/store.js'
-	import Button from '../lib/Button.svelte'
-	import Tabs from '../lib/Tabs.svelte'
-	import InfoTabB from '../lib/tabs/InfoTabB.svelte'
-	import QuestionsTabC from '../lib/tabs/QuestionsTabC.svelte'
-	import SegmentedControl from '../lib/SegmentedControl.svelte'
-	import ScoreTab from '../lib/tabs/ScoreTab.svelte'
+	import Button from '../components/Button.svelte'
+	import Tabs from '../components/Tabs.svelte'
+	import SegmentedControl from '../components/SegmentedControl.svelte'
+	import InfoTabB from '../tabs/InfoTabB.svelte'
+	import QuestionsTabC from '../tabs/QuestionsTabC.svelte'
+	import ScoreTab from '../tabs/ScoreTab.svelte'
 
 	$: tabs = [
 		{title: 'Информация', component: InfoTabB},
