@@ -1,43 +1,78 @@
 <script>
   export let question = {}
   export let i
-
+	export let focusedVariant
 	import {globalData, testQuestions} from '../stores/store.js'
 	import Button from './Button.svelte'
+	import Icon from './Icon.svelte'
 	import Textarea from './Textarea.svelte'
 	import SegmentedControl from './SegmentedControl.svelte'
-	import Toggle from './Toggle.svelte'
+	import Checkbox from './Checkbox.svelte'
 </script>
 
+
+
 <div class="question-card">
-  <h2 id="question-{i}">{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}` }</h2>
-  <Textarea bind:value={question.question} placeholder="Текст вопроса" initialSize="96px"/>
-  <SegmentedControl items={globalData.testFormats} 
+
+	<!-- Header -->
+  <h2 id="question-{i}">
+		{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}` }
+	</h2>
+  
+	<!-- Question -->
+	<Textarea bind:value={question.question} placeholder="Текст вопроса" initialSize="96px"/>
+  
+	<!-- Answer type choice -->
+	<SegmentedControl items={globalData.testFormats} 
                     name="format-{i}" 
                     bind:selectedItem={$testQuestions[i].format}
                     --width="350px"
   />
-
+	
+	<!-- Answer variants-->
   {#if question.format === 'variants'}
-  <div class="variants-wrap">
-    {#each question.variants as answer, i}
-      <div class="variant">							
-        <Textarea bind:value={answer} placeholder="Ответ {i+1}" hasButton resizable={false}/>
-        <Toggle/>
-      </div>
-    {/each}
-    <Button title="Добавить вариант" 
-            type="white"
-						--width="200px"
-            on:click={() => question.variants = [...question.variants, '']}
-    />
-  </div>
-  {:else if question.format === 'free'}
+		<div class="variants-wrap">
+			{#each question.variants as answer, i}
+				<div class="variant" class:focused={focusedVariant === i}>							
+					<Checkbox/>
+					<Textarea bind:value={answer} 
+										placeholder="Ответ {i+1}"
+										on:focus={() => focusedVariant = i}
+										on:blur={() => focusedVariant = null}
+										hasButton
+										borderless
+										resizable={false}
+										initialSize="20px"
+										placeholderColor="var(--gray-600)"
+										customCSS="padding-block: 16px"
+					/>
+					{#if question.variants.length > 2}
+						<button on:click={()=>alert('Click')}>
+							<Icon type="trash" color="var(--gray-500)"/>
+						</button>
+					{/if}
+				</div>
+			{/each}
+			<Button title="Добавить вариант" 
+							type="white"
+							--width="fit-content"
+							on:click={() => question.variants = [...question.variants, '']}
+			/>
+		</div>
+	{/if}
+	
+	<!-- Free answer -->
+  {#if question.format === 'free'}
   <div class="free-answer-wrap">
-    <Textarea placeholder="Пример правильного ответа, рекомендации по оценке для проверяющего" initialSize="96px"/>
+    <Textarea placeholder="Пример правильного ответа, рекомендации по оценке для проверяющего" 
+							initialSize="96px"
+		/>
   </div>
   {/if}
+
 </div>
+
+
 
 <style>
 	.question-card{
@@ -67,7 +102,38 @@
 	}
 	
 	.variant{
+		position: relative;
 		display: flex;
-		gap: 12px;
+		align-items: start;
+		background-color: var(--gray-50);
+		border-radius: 8px;
+		box-shadow: 0 0 0 1px var(--gray-200);
+		transition: box-shadow .15s;
+	}
+	
+	.variant:hover{
+		box-shadow: 0 0 0 1px var(--gray-400);
+		/* transition: box-shadow 0s; */
+	}
+	
+	.variant.focused{
+    outline: 2px solid black;
+	}
+
+	button{
+		display: inline-flex;
+		margin: 0;
+		padding: 18px 16px;
+		background: transparent;
+		border: none;
+		opacity: 0;
+		cursor: pointer;
+		transition: opacity .1s;
+	}
+
+	button:focus,
+	.variant.focused button,
+	.variant:hover button{
+		opacity: 1;
 	}
 </style>

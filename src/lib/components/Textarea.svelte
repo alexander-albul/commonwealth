@@ -7,6 +7,9 @@
 	export let initialSize = "48px";
 	export let resizable = true;
 	export let hasButton = false;
+	export let borderless = false;
+	export let placeholderColor = 'var(--gray-500)';
+	export let customCSS = '';
 	
 	let box;
 	
@@ -21,48 +24,30 @@
 </script>
 
 
-<div class="textarea-wrap">
+
+
 	<textarea bind:this={box} 
 						bind:value 
 						on:input={fitHeight(box)}
+						on:focus
+						on:blur
 						placeholder={placeholder}
 						class:non-resizable={!resizable}
 						class:has-button={hasButton}
+						class:borderless
 						style:--initial-size={initialSize}
+						style:--placeholder-color={placeholderColor}
+						style={customCSS}
 	/>
-	{#if hasButton}
-	<button on:click={()=>alert('Click')}>
-		<Icon type="trash"/>
-	</button>
-	{/if}
-</div>
+
 
 
 <style>
-	.textarea-wrap{
-		position: relative;
-		width: 100%;
-	}
-	
-	button{
-		position: absolute;
-		top: 6px;
-		right: 6px;
-		display: inline-flex;
-		margin: 0;
-		padding: 8px;
-		background: transparent;
-		border: none;
-		border-radius: 8px;
-		opacity: 0;
-		cursor: pointer;
-		transition: opacity .2s;
-	}
-	
 	textarea{
 		margin: 0;
 		width: 100%;
-		padding: 10px 16px; 
+		padding: 10px 16px;
+		color: var(--gray-900);
 		line-height: 24px; 
 		border-radius: 6px;
 		box-shadow: 0 0 0 1px var(--gray-300);
@@ -77,16 +62,27 @@
 	textarea:hover{
 		box-shadow: 0 0 0 1px var(--gray-300);
 	}
+
+	textarea::placeholder{
+		color: var(--placeholder-color);
+	}
 	
 	textarea.non-resizable{ 
 		resize: none;
 	}
 	
-	textarea.has-button{
-		padding-right: 44px;
+	textarea.borderless{
+		padding: 0;
+		border-radius: 0;
+		background-color: transparent;
+		box-shadow: none;
 	}
 
-	.textarea-wrap:hover button{
-		opacity: 1;
+	textarea.borderless:focus{
+		outline: none;
+	}
+
+	textarea.has-button{
+		padding-right: 44px;
 	}
 </style>
