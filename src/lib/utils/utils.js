@@ -1,6 +1,9 @@
+import { uiState, testQuestions } from '../stores/store.js';
+import { get } from 'svelte/store';
+
 export function addQuestion() {
-  $testQuestions = [
-    ...$testQuestions,
+  testQuestions.update((items) => [
+    ...items,
     {
       question: '',
       format: 'variants',
@@ -9,6 +12,10 @@ export function addQuestion() {
       freeAnswerCommentary: '',
       score: 1,
     },
-  ];
-  $uiState.selectedQuestion = $testQuestions.length - 1;
+  ]);
+
+  uiState.update((state) => {
+    state.selectedQuestion = get(testQuestions).length - 1;
+    return state;
+  });
 }

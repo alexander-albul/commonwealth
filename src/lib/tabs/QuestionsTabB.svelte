@@ -4,24 +4,13 @@
 	import Button from '../components/Button.svelte'
 	import Icon from '../components/Icon.svelte'
 	import Question from '../components/Question.svelte'
-	
-	function addQuestion() {
-		$testQuestions = [...$testQuestions, {
-			question: '',
-			format: 'variants',
-			variants: ['', '',],
-			correctVariants: [],
-			freeAnswerCommentary: '',
-			score: 1,
-		}]
-		$uiState.selectedQuestion = $testQuestions.length - 1
-	}
+	import {addQuestion} from '../utils/utils.js'
 
   $: selectedQuestion = $uiState.selectedQuestion
 </script>
 
 
-
+<pre>{JSON.stringify($uiState, null,2)}</pre>
 <div class="questions-tab-content">
 	<div class="main">
 		{#key selectedQuestion}

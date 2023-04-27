@@ -6,7 +6,6 @@
 	import SegmentedControl from '../components/SegmentedControl.svelte'
 	
 	let titleInput
-	
 	let titleGeneration = true
 	
 	function generateTitle(){
@@ -21,6 +20,7 @@
 		titleGeneration = false
 	}
 </script>
+
 
 
 <div class="info-tab-content">
@@ -58,6 +58,7 @@
 					--max-width="600px" 
 	/>
 </div>
+	
 	
 	
 <style>

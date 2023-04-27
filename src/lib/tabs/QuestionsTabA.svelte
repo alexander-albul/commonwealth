@@ -1,20 +1,10 @@
 <script>
 	import {slide} from 'svelte/transition'
 	import {uiState, globalData, testQuestions} from '../stores/store.js'
+	import {addQuestion} from '../utils/utils.js'
 	import Button from '../components/Button.svelte'
 	import Icon from '../components/Icon.svelte'
 	import Question from '../components/Question.svelte'
-	
-	function addQuestion() {
-		$testQuestions = [...$testQuestions, {
-		question: '',
-		format: 'variants',
-		variants: ['', '',],
-		correctVariants: [],
-		freeAnswerCommentary: '',
-		score: 1,
-	}]
-	} 
 </script>
 
 
@@ -28,7 +18,7 @@
 							type="white" 
 							size="large"
 							--width="100%"
-							on:click={addQuestion}
+							on:click={() => addQuestion($uiState, $testQuestions)}
 			/>
 			<Button title="Распределить баллы"
 							size="large"
