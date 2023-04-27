@@ -19,3 +19,6 @@ export function addQuestion() {
     return state;
   });
 }
+
+// Вызов $store нельзя использовать в js файлах
+// В конце update должен быть return

@@ -10,7 +10,7 @@
 </script>
 
 
-<pre>{JSON.stringify($uiState, null,2)}</pre>
+
 <div class="questions-tab-content">
 	<div class="main">
 		{#key selectedQuestion}

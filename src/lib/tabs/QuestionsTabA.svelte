@@ -8,6 +8,7 @@
 </script>
 
 
+
 <div class="questions-tab-content">
 	<div class="main">
 		{#each $testQuestions as question, i}
@@ -25,7 +26,7 @@
 							--width="100%"
 							on:click={() => $uiState.activeTab = 2}
 			/>
-	</div>
+		</div>
 	</div>
 		
 	<div class="sidebar">
