@@ -1,21 +1,12 @@
 <script>
 	import {slide} from 'svelte/transition'
-	import {uiState, globalData, testQuestions} from '../../stores/store.js'
-	import Button from '../Button.svelte'
-	import Icon from '../Icon.svelte'
-	import Question from '../Question.svelte'
-	
-	function addQuestion() {
-		$testQuestions = [...$testQuestions, {
-		question: '',
-		format: 'variants',
-		variants: ['', '',],
-		correctVariants: [],
-		freeAnswerCommentary: '',
-		score: 1,
-	}]
-	} 
+	import {uiState, globalData, testQuestions} from '../stores/store.js'
+	import {addQuestion} from '../utils/utils.js'
+	import Button from '../components/Button.svelte'
+	import Icon from '../components/Icon.svelte'
+	import Question from '../components/Question.svelte'
 </script>
+
 
 
 <div class="questions-tab-content">
@@ -28,14 +19,14 @@
 							type="white" 
 							size="large"
 							--width="100%"
-							on:click={addQuestion}
+							on:click={() => addQuestion($uiState, $testQuestions)}
 			/>
 			<Button title="Распределить баллы"
 							size="large"
 							--width="100%"
 							on:click={() => $uiState.activeTab = 2}
 			/>
-	</div>
+		</div>
 	</div>
 		
 	<div class="sidebar">

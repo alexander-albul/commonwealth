@@ -1,7 +1,7 @@
 <script>
-	import {uiState, globalData, testInfo, testQuestions} from '../../stores/store.js'
-	import Button from '../../lib/Button.svelte'
-	import Question from '../../lib/Question.svelte'
+	import {uiState, globalData, testInfo, testQuestions} from '../stores/store.js'
+	import Button from '../components/Button.svelte'
+	import Question from '../components/Question.svelte'
 	
 	let autosum = true;
 	

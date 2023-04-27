@@ -1,12 +1,11 @@
 <script>
 	import {onMount} from 'svelte'
-	import {uiState, globalData, testInfo} from '../../stores/store.js'
+	import {uiState, globalData, testInfo} from '../stores/store.js'
 	import { slide } from 'svelte/transition';
-	import Button from '../Button.svelte';
-	import SegmentedControl from '../SegmentedControl.svelte'
+	import Button from '../components/Button.svelte';
+	import SegmentedControl from '../components/SegmentedControl.svelte'
 	
 	let titleInput
-	
 	let titleGeneration = true
 	
 	function generateTitle(){
@@ -21,6 +20,7 @@
 		titleGeneration = false
 	}
 </script>
+
 
 
 <div class="info-tab-content">
@@ -58,6 +58,7 @@
 					--max-width="600px" 
 	/>
 </div>
+	
 	
 	
 <style>

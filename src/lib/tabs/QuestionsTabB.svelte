@@ -1,21 +1,10 @@
 <script>
 	import {slide} from 'svelte/transition'
-	import {uiState, globalData, testQuestions} from '../../stores/store.js'
-	import Button from '../Button.svelte'
-	import Icon from '../Icon.svelte'
-	import Question from '../Question.svelte'
-	
-	function addQuestion() {
-		$testQuestions = [...$testQuestions, {
-			question: '',
-			format: 'variants',
-			variants: ['', '',],
-			correctVariants: [],
-			freeAnswerCommentary: '',
-			score: 1,
-		}]
-		$uiState.selectedQuestion = $testQuestions.length - 1
-	}
+	import {uiState, globalData, testQuestions} from '../stores/store.js'
+	import Button from '../components/Button.svelte'
+	import Icon from '../components/Icon.svelte'
+	import Question from '../components/Question.svelte'
+	import {addQuestion} from '../utils/utils.js'
 
   $: selectedQuestion = $uiState.selectedQuestion
 </script>
