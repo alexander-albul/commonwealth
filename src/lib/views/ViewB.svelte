@@ -1,5 +1,6 @@
 <script>
 	import {uiState, globalData, testInfo, testQuestions} from '../stores/store.js'
+	import {slide} from 'svelte/transition'
 	import Button from '../components/Button.svelte'
 	import Tabs from '../components/Tabs.svelte'
 	import SegmentedControl from '../components/SegmentedControl.svelte'
@@ -56,6 +57,7 @@
               <button
                 class="sidebar-question"
                 class:active={$uiState.activeTab === 1 && selectedQuestion === i}
+								transition:slide|local={{duration: 300}}
                 on:click={() => {$uiState.activeTab = 1; $uiState.selectedQuestion = i}}
               >
                 {question.question

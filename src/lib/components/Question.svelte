@@ -1,13 +1,14 @@
 <script>
-  export let question = {}
-  export let i
-	export let focusedVariant
+	import {slide} from 'svelte/transition'
 	import {globalData, testQuestions} from '../stores/store.js'
 	import Button from './Button.svelte'
 	import Icon from './Icon.svelte'
 	import Textarea from './Textarea.svelte'
 	import SegmentedControl from './SegmentedControl.svelte'
 	import Checkbox from './Checkbox.svelte'
+  export let question = {}
+  export let i
+	export let focusedVariant
 </script>
 
 
@@ -33,7 +34,10 @@
   {#if question.format === 'variants'}
 		<div class="variants-wrap">
 			{#each question.variants as answer, i}
-				<div class="variant" class:focused={focusedVariant === i}>							
+				<div class="variant" 
+						 class:focused={focusedVariant === i}
+						 transition:slide|local={{duration: 300}}
+				>							
 					<Checkbox/>
 					<Textarea bind:value={answer} 
 										placeholder="Ответ {i+1}"
@@ -47,7 +51,7 @@
 										customCSS="padding-block: 16px"
 					/>
 					{#if question.variants.length > 2}
-						<button on:click={()=>alert('Click')}>
+						<button on:click={() => {question.variants.splice(i, 1); question.variants = question.variants}}>
 							<Icon type="trash" color="var(--gray-500)"/>
 						</button>
 					{/if}
