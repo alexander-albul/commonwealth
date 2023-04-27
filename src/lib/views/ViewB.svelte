@@ -43,11 +43,6 @@
 	</div>
 
   <div class="tab-content">
-  
-    <!-- Main -->
-    <div class="main">
-      <svelte:component this={tabs[$uiState.activeTab].component} />
-    </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -80,6 +75,11 @@
       >
         Баллы
       </button>
+    </div>
+  
+    <!-- Main -->
+    <div class="main">
+      <svelte:component this={tabs[$uiState.activeTab].component} />
     </div>
 
 
