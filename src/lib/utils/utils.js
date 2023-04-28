@@ -11,6 +11,12 @@ export function addQuestion() {
       correctVariants: [],
       freeAnswerCommentary: '',
       score: 1,
+      errors: {
+        emptyQuestion: false,
+        noVariants: false,
+        noCorrectVariants: false,
+        emptyFreeAnswerCommentary: false,
+      },
     },
   ]);
 

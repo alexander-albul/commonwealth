@@ -41,6 +41,12 @@ export const testQuestions = writable([
     correctVariants: [],
     freeAnswerCommentary: '',
     score: 1,
+    errors: {
+      emptyQuestion: false,
+      noVariants: false,
+      noCorrectVariants: false,
+      emptyFreeAnswerCommentary: false,
+    }
   },
 ]);
 

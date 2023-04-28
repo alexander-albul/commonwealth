@@ -14,6 +14,8 @@
 		{title: 'Баллы', component: ScoreTab},
 	]
 
+  $: selectedQuestion = $uiState.selectedQuestion
+
   function addQuestion() {
 		$testQuestions = [...$testQuestions, {
 			question: '',
@@ -26,7 +28,17 @@
 		$uiState.selectedQuestion = $testQuestions.length - 1
 	}
 
-  $: selectedQuestion = $uiState.selectedQuestion
+	function checkErrors() {
+		$testQuestions.forEach(item => {
+			item.errors.emptyQuestion = item.question === '' ? true : false;
+      item.errors.noVariants = item.variants.every(str => str === '') || item.variants.length === 0 ? true : false;
+      item.errors.noCorrectVariants = item.correctVariants.length === 0;
+      item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+			item.errors = item.errors
+		})
+
+		$testQuestions
+	}
 </script>
 
 
@@ -38,7 +50,7 @@
 			<h2>{$testInfo.title}</h2>
 			<div class="header-buttons">
 				<Button type="outline" title="Сохранить"/>
-				<Button title="Отправить на проверку"/>
+				<Button title="Отправить на проверку" on:click={checkErrors}/>
 			</div>
 		</div>
 	</div>
