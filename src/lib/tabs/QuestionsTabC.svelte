@@ -35,6 +35,8 @@
 		align-items: start;
 	}
 	
+	/* TODO: Если точно останется вид по одному вопросу за раз, почистить стили */
+
 	.main{
 		display: flex;
 		flex-direction: column;

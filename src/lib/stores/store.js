@@ -1,7 +1,9 @@
 import { writable } from 'svelte/store';
 
+const stored = localStorage.uiState;
+
 export const uiState = writable({
-  activeTab: 0,
+  activeTab: 1,
   questionTabVariant: 'b',
   viewVariant: 'sidebar',
   selectedQuestion: 0,
@@ -17,12 +19,10 @@ export const globalData = {
   ],
   testFormats: [
     {
-      title: 'Варианты ответа',
-      value: 'variants',
+      title: 'Варианты ответа', value: 'variants',
     },
     {
-      title: 'Свободная форма',
-      value: 'free',
+      title: 'Свободная форма', value: 'free',
     },
   ],
 };
@@ -43,3 +43,5 @@ export const testQuestions = writable([
     score: 1,
   },
 ]);
+
+export const errors = writable();

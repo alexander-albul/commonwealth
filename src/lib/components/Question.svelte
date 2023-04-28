@@ -9,6 +9,10 @@
   export let question = {}
   export let i
 	export let focusedVariant
+	
+	// Под большим вопросом
+	export let questionError = null
+	export let variantsError = ['test error', null, 'asd']
 </script>
 
 
@@ -21,7 +25,11 @@
 	</h2>
   
 	<!-- Question -->
-	<Textarea bind:value={question.question} placeholder="Текст вопроса" initialSize="96px"/>
+	<Textarea bind:value={question.question} 
+						placeholder="Текст вопроса" 
+						initialSize="96px" 
+						error={questionError}
+	/>
   
 	<!-- Answer type choice -->
 	<SegmentedControl items={globalData.testFormats} 
@@ -43,18 +51,17 @@
 										placeholder="Ответ {i+1}"
 										on:focus={() => focusedVariant = i}
 										on:blur={() => focusedVariant = null}
-										hasButton
 										borderless
 										resizable={false}
 										initialSize="20px"
 										placeholderColor="var(--gray-600)"
-										customCSS="padding-block: 16px"
+										inputCustomCSS="padding-top: 16px"
+										wrapCustomCSS="padding-bottom: 12px"
+										error={variantsError[i]}
 					/>
-					{#if question.variants.length > 2}
-						<button on:click={() => {question.variants.splice(i, 1); question.variants = question.variants}}>
-							<Icon type="trash" color="var(--gray-500)"/>
-						</button>
-					{/if}
+					<button on:click={() => {question.variants.splice(i, 1); question.variants = question.variants}}>
+						<Icon type="trash" color="var(--gray-500)"/>
+					</button>
 				</div>
 			{/each}
 			<Button title="Добавить вариант" 
@@ -121,6 +128,7 @@
 	}
 	
 	.variant.focused{
+		background: white;
     outline: 2px solid black;
 	}
 

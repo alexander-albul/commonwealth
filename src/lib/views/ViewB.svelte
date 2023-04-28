@@ -46,6 +46,7 @@
   <div class="tab-content">
 
     <!-- Sidebar -->
+		<!-- TOOD: Выделить в отдельный компонент -->
     <div class="sidebar">
       <button class="sidebar-item"
               class:active={$uiState.activeTab === 0}
@@ -97,6 +98,13 @@
 		width: 100%;
 		max-width: 1240px;
 		padding: 28px;
+		transition: padding .3s;
+	}
+
+	@media (max-width: 767px) {
+		main{
+			padding: 16px;
+		}
 	}
 
 	.header{

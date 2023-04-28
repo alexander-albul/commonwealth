@@ -22,9 +22,7 @@
          on:blur={handleBlur}
   />
   <div class="circle" class:checked class:focused>
-    {#if checked}
-			<Icon type={"check"} size={checkSize}/>
-    {/if}
+    <Icon type={"check"} size={checkSize}/>
   </div>
 </label>
 
@@ -60,8 +58,14 @@
 		height: 24px;
     aspect-ratio: 1;
     background-color: white;
+    color: transparent;
     box-shadow: 0 0 0 1px var(--gray-400) inset;
 		border-radius: 99px;
+    transition: color .15s;
+  }
+
+  .toggle:hover .circle{
+    color: var(--gray-400);
   }
 
 	.circle.checked{
@@ -69,4 +73,8 @@
 		background-color: var(--gray-900);
     box-shadow: none;
 	}
+
+  .toggle:hover .circle.checked{
+    color: white;
+  }
 </style>

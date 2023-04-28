@@ -55,6 +55,15 @@ h2 {
   line-height: 110%;
 }
 
+h2 {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+}
+
 input,
 textarea {
   font-size: 1rem;

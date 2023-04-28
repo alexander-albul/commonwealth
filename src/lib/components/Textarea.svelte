@@ -3,13 +3,15 @@
 	import Icon from './Icon.svelte'
 	
 	export let value = '';
+	export let error;
 	export let placeholder = 'Введите текст';
 	export let initialSize = "48px";
 	export let resizable = true;
 	export let hasButton = false;
 	export let borderless = false;
 	export let placeholderColor = 'var(--gray-500)';
-	export let customCSS = '';
+	export let wrapCustomCSS = '';
+	export let inputCustomCSS = '';
 	
 	let box;
 	
@@ -25,24 +27,36 @@
 
 
 
-
+<div class="textarea-wrap" style={wrapCustomCSS}>
 	<textarea bind:this={box} 
 						bind:value 
 						on:input={fitHeight(box)}
 						on:focus
 						on:blur
 						placeholder={placeholder}
-						class:non-resizable={!resizable}
-						class:has-button={hasButton}
 						class:borderless
+						class:error
+						class:has-button={hasButton}
+						class:non-resizable={!resizable}
 						style:--initial-size={initialSize}
 						style:--placeholder-color={placeholderColor}
-						style={customCSS}
+						style={inputCustomCSS}
 	/>
+	{#if error}
+		<p class="error-wrap" on:click={() => box.focus()}>
+			<Icon type="alert" size="12" stroke="1.25"/>
+			<span>{error}</span>
+		</p>
+	{/if}
+</div>
 
 
 
 <style>
+	.textarea-wrap{
+		width: 100%;
+	}
+
 	textarea{
 		margin: 0;
 		width: 100%;
@@ -67,6 +81,10 @@
 		color: var(--placeholder-color);
 	}
 	
+	textarea.error{
+		box-shadow: 0 0 0 1px #DC2626;
+	}
+
 	textarea.non-resizable{ 
 		resize: none;
 	}
@@ -84,5 +102,21 @@
 
 	textarea.has-button{
 		padding-right: 44px;
+	}
+
+	.error-wrap{
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-top: 4px;
+		padding-bottom: 4px;
+		font-size: 14px;
+		color: #DC2626;
+		user-select: none;
+	}
+
+	:global(.error svg){
+		position: relative;
+		top: .5px;
 	}
 </style>
