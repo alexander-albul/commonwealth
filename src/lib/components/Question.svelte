@@ -11,8 +11,8 @@
 	export let focusedVariant
 	
 	// Под большим вопросом
-	export let questionError = null
-	export let variantsError = ['test error', null, 'asd']
+	export let questionError = 'test'
+	export let variantsError = ['test', null, 'asd']
 </script>
 
 
