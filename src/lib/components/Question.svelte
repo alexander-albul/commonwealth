@@ -12,7 +12,15 @@
 	
 	// Под большим вопросом
 	export let questionError = 'test'
-	export let variantsError = ['test', null, 'asd']
+
+	function addVariant() {
+		question.variants = [...question.variants, '']
+	}
+
+	function deleteVariant(i) {
+		question.variants.splice(i, 1);
+		question.variants = question.variants
+	}
 </script>
 
 
@@ -47,7 +55,8 @@
 						 transition:slide|local={{duration: 300}}
 				>							
 					<Checkbox/>
-					<Textarea bind:value={answer} 
+					<Textarea bind:value={answer.text}
+										bind:checked={answer.correct}
 										placeholder="Ответ {i+1}"
 										on:focus={() => focusedVariant = i}
 										on:blur={() => focusedVariant = null}
@@ -57,9 +66,9 @@
 										placeholderColor="var(--gray-600)"
 										inputCustomCSS="padding-top: 16px"
 										wrapCustomCSS="padding-bottom: 12px"
-										error={variantsError[i]}
+										error={false}
 					/>
-					<button on:click={() => {question.variants.splice(i, 1); question.variants = question.variants}}>
+					<button on:click={() => deleteVariant(i)}>
 						<Icon type="trash" color="var(--gray-500)"/>
 					</button>
 				</div>
@@ -67,7 +76,7 @@
 			<Button title="Добавить вариант" 
 							type="white"
 							--width="fit-content"
-							on:click={() => question.variants = [...question.variants, '']}
+							on:click={addVariant}
 			/>
 		</div>
 	{/if}

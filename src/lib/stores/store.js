@@ -37,7 +37,10 @@ export const testQuestions = writable([
   {
     question: '',
     format: 'variants',
-    variants: ['', ''],
+    variants: [
+      {text: '', correct: false},
+      {text: '', correct: false},
+    ],
     correctVariants: [],
     freeAnswerCommentary: '',
     score: 1,

@@ -108,8 +108,8 @@
 		display: flex;
 		align-items: center;
 		gap: 6px;
-		margin-top: 4px;
-		padding-bottom: 4px;
+		/* margin-top: 4px; */
+		padding-block: 4px;
 		font-size: 14px;
 		color: #DC2626;
 		user-select: none;

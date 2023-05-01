@@ -7,8 +7,10 @@ export function addQuestion() {
     {
       question: '',
       format: 'variants',
-      variants: ['', ''],
-      correctVariants: [],
+      variants: [
+        {text: '', correct: false},
+        {text: '', correct: false},
+      ],
       freeAnswerCommentary: '',
       score: 1,
       errors: {

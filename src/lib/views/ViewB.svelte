@@ -1,5 +1,6 @@
 <script>
 	import {uiState, globalData, testInfo, testQuestions} from '../stores/store.js'
+	import {addQuestion} from '../utils/utils.js'
 	import {slide} from 'svelte/transition'
 	import Button from '../components/Button.svelte'
 	import Tabs from '../components/Tabs.svelte'
@@ -16,18 +17,6 @@
 
   $: selectedQuestion = $uiState.selectedQuestion
 
-  function addQuestion() {
-		$testQuestions = [...$testQuestions, {
-			question: '',
-			format: 'variants',
-			variants: ['', '',],
-			correctVariants: [],
-			freeAnswerCommentary: '',
-      score: 1,
-		}]
-		$uiState.selectedQuestion = $testQuestions.length - 1
-	}
-
 	function checkErrors() {
 		$testQuestions.forEach(item => {
 			item.errors.emptyQuestion = item.question === '' ? true : false;
@@ -37,7 +26,7 @@
 			item.errors = item.errors
 		})
 
-		$testQuestions
+		// $testQuestions
 	}
 </script>
 
@@ -80,6 +69,7 @@
             {/each}
         </div>
         <button class="sidebar-question" on:click={addQuestion}>
+					<!-- TODO: Залить в компонент иконки -->
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           <span>Добавить вопрос</span>
         </button>
@@ -97,9 +87,9 @@
       <svelte:component this={tabs[$uiState.activeTab].component} />
     </div>
 
-
   </div>
 </main>
+<pre>{JSON.stringify($testQuestions, null, 2)}</pre>
 
 
 
