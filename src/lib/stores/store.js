@@ -42,7 +42,6 @@ export const testQuestions = writable([
     variants: [
       { id: 0, text: '', correct: false },
       { id: 1, text: '', correct: false },
-      { id: 2, text: '', correct: false },
     ],
     correctVariants: [],
     freeAnswerCommentary: '',

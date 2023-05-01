@@ -7,15 +7,22 @@
 	import Textarea from './Textarea.svelte'
 	import SegmentedControl from './SegmentedControl.svelte'
 	import Checkbox from './Checkbox.svelte'
-  export let question = {}
+
+	export let question = {}
   export let i
 	export let focusedVariant
-	
-	// Под большим вопросом
 	export let questionError = 'test'
 
 	function addVariant() {
-		let newId = question.variants.length + 1
+		// Пришлось так
+		let newId
+
+		if (question.variants.length) {
+			newId = question.variants[question.variants.length - 1].id + 1
+		} else {
+			newId = 0
+		}
+
 		question.variants.push( 
       { 
 				id: newId,
@@ -58,11 +65,8 @@
   {#if question.format === 'variants'}
 		<div class="variants-wrap">
 			{#each question.variants as answer, i (answer.id)}
-				<div class="variant"
-						 class:focused={focusedVariant === i}
-						 in:slide|local={{duration: 300}}
-						 out:slide|local={{duration: 300}}
-				>							
+				<div class="variant" class:focused={focusedVariant === i}
+				transition:slide|local={{duration: 200}}>							
 					<Checkbox bind:checked={answer.correct}/>
 					<Textarea bind:value={answer.text}
 										placeholder="Ответ {i+1}"
@@ -79,7 +83,7 @@
 					<button on:click={() => deleteVariant(i)}>
 						<Icon type="trash" color="var(--gray-500)"/>
 					</button>
-				</div>
+			</div>
 			{/each}
 		</div>
 			<Button title="Добавить вариант" 
@@ -124,15 +128,11 @@
 	}
 	
 	.variants-wrap{
-		display: flex;
-		flex-direction: column;
-	}
-	
-	.variants-wrap > * + * {
-		margin-top: 16px;
+		margin-bottom: -16px;
 	}
 
 	.variant{
+		margin-bottom: 16px;
 		position: relative;
 		display: flex;
 		align-items: start;
@@ -140,6 +140,10 @@
 		border-radius: 8px;
 		box-shadow: 0 0 0 1px var(--gray-200);
 		transition: box-shadow .15s;
+	}
+
+	.variant:last-child{
+		/* margin-bottom: 0; */
 	}
 	
 	.variant:hover{
