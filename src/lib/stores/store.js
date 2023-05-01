@@ -19,10 +19,12 @@ export const globalData = {
   ],
   testFormats: [
     {
-      title: 'Варианты ответа', value: 'variants',
+      title: 'Варианты ответа',
+      value: 'variants',
     },
     {
-      title: 'Свободная форма', value: 'free',
+      title: 'Свободная форма',
+      value: 'free',
     },
   ],
 };
@@ -38,8 +40,9 @@ export const testQuestions = writable([
     question: '',
     format: 'variants',
     variants: [
-      {text: '', correct: false},
-      {text: '', correct: false},
+      { id: 0, text: '', correct: false },
+      { id: 1, text: '', correct: false },
+      { id: 2, text: '', correct: false },
     ],
     correctVariants: [],
     freeAnswerCommentary: '',
@@ -49,7 +52,7 @@ export const testQuestions = writable([
       noVariants: false,
       noCorrectVariants: false,
       emptyFreeAnswerCommentary: false,
-    }
+    },
   },
 ]);
 

@@ -1,5 +1,6 @@
 <script>
 	import {slide} from 'svelte/transition'
+	import { flip } from 'svelte/animate';
 	import {globalData, testQuestions} from '../stores/store.js'
 	import Button from './Button.svelte'
 	import Icon from './Icon.svelte'
@@ -14,7 +15,14 @@
 	export let questionError = 'test'
 
 	function addVariant() {
-		question.variants = [...question.variants, '']
+		let newId = question.variants.length + 1
+		question.variants.push( 
+      { 
+				id: newId,
+				text: '', 
+				correct: false 
+		})
+		question.variants = question.variants
 	}
 
 	function deleteVariant(i) {
@@ -49,14 +57,14 @@
 	<!-- Answer variants-->
   {#if question.format === 'variants'}
 		<div class="variants-wrap">
-			{#each question.variants as answer, i}
-				<div class="variant" 
+			{#each question.variants as answer, i (answer.id)}
+				<div class="variant"
 						 class:focused={focusedVariant === i}
-						 transition:slide|local={{duration: 300}}
+						 in:slide|local={{duration: 300}}
+						 out:slide|local={{duration: 300}}
 				>							
-					<Checkbox/>
+					<Checkbox bind:checked={answer.correct}/>
 					<Textarea bind:value={answer.text}
-										bind:checked={answer.correct}
 										placeholder="Ответ {i+1}"
 										on:focus={() => focusedVariant = i}
 										on:blur={() => focusedVariant = null}
@@ -73,12 +81,12 @@
 					</button>
 				</div>
 			{/each}
+		</div>
 			<Button title="Добавить вариант" 
 							type="white"
 							--width="fit-content"
 							on:click={addVariant}
 			/>
-		</div>
 	{/if}
 	
 	<!-- Free answer -->
@@ -104,7 +112,7 @@
 		border: 1px solid var(--gray-300);
 		border-radius: 8px;
 	}
-  
+
 	h2{
     margin-top: -56px;
     padding-top: 56px;
@@ -118,9 +126,12 @@
 	.variants-wrap{
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
 	}
 	
+	.variants-wrap > * + * {
+		margin-top: 16px;
+	}
+
 	.variant{
 		position: relative;
 		display: flex;

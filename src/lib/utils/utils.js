@@ -8,8 +8,8 @@ export function addQuestion() {
       question: '',
       format: 'variants',
       variants: [
-        {text: '', correct: false},
-        {text: '', correct: false},
+        {id: 0, text: '', correct: false},
+        {id: 1,text: '', correct: false},
       ],
       freeAnswerCommentary: '',
       score: 1,
