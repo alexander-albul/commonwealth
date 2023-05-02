@@ -80,9 +80,9 @@
 			<div class="answer-error">
 				<Icon type="alert" size="12" stroke="1.25"/>
 				{#if question.errors.noVariants}
-					<p>Укажите хотя бы один ответ</p>
+					<p>Укажите минимум два варианта ответа</p>
 				{:else if question.errors.noCorrectVariants}
-					<p>{question.errors.noCorrectVariants ? 'Выберите хотя бы один правильный ответ' : ''}</p>
+					<p>Выберите хотя бы один правильный ответ</p>
 				{/if}
 			</div>
 			{/if}
