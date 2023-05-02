@@ -70,7 +70,9 @@
 	
 	<!-- Answer variants-->
 		{#if question.format === 'variants'}
-				{#if question.errors.noVariants || question.errors.noCorrectVariants}
+			
+			<!-- Error -->
+			{#if question.errors.noVariants || question.errors.noCorrectVariants}
 			<div class="answer-error">
 				<Icon type="alert" size="12" stroke="1.25"/>
 				{#if question.errors.noVariants && question.errors.noCorrectVariants}
@@ -80,45 +82,47 @@
 					<p>{question.errors.noCorrectVariants ? 'Выберите хотя бы один правильный ответ' : ''}</p>
 				{/if}
 			</div>
-		{/if}
+			{/if}
 
-		<div class="variants-wrap">
-			{#each question.variants as answer, i (answer.id)}
-				<div class="variant" 
-						 class:focused={focusedVariant === i}
-						 transition:slide|local={{duration: 200}}
-				>							
-					<Checkbox bind:checked={answer.correct}/>
-					<Textarea bind:value={answer.text}
-										placeholder="Ответ {i+1}"
-										on:focus={() => focusedVariant = i}
-										on:blur={() => focusedVariant = null}
-										borderless
-										resizable={false}
-										initialSize="20px"
-										placeholderColor="var(--gray-600)"
-										inputCustomCSS="padding-top: 16px"
-										wrapCustomCSS="padding-bottom: 12px"
-										error={false}
-					/>
-					<button on:click={deleteVariant(i)}>
-						<Icon type="trash" color="var(--gray-500)"/>
-					</button>
+			<!-- Variants -->
+			<div class="variants-wrap">
+				{#each question.variants as answer, i (answer.id)}
+					<div class="variant" 
+							class:focused={focusedVariant === i}
+							transition:slide|local={{duration: 200}}
+					>							
+						<Checkbox bind:checked={answer.correct}/>
+						<Textarea bind:value={answer.text}
+											placeholder="Ответ {i+1}"
+											on:focus={() => focusedVariant = i}
+											on:blur={() => focusedVariant = null}
+											borderless
+											resizable={false}
+											initialSize="20px"
+											placeholderColor="var(--gray-600)"
+											inputCustomCSS="padding-top: 16px"
+											wrapCustomCSS="padding-bottom: 12px"
+											error={false}
+						/>
+						<button on:click={deleteVariant(i)}>
+							<Icon type="trash" color="var(--gray-500)"/>
+						</button>
+				</div>
+				{/each}
 			</div>
-			{/each}
-		</div>
-			<Button title="Добавить вариант" 
-							type="white"
-							--width="fit-content"
-							on:click={addVariant}
-			/>
-	{/if}
+				<Button title="Добавить вариант" 
+								type="white"
+								--width="fit-content"
+								on:click={addVariant}
+				/>
+		{/if}
 	
 	<!-- Free answer -->
   {#if question.format === 'free'}
 		<div class="free-answer-wrap">
 			<Textarea placeholder="Пример правильного ответа, рекомендации по оценке для проверяющего" 
 								initialSize="96px"
+								error={question.errors.emptyFreeAnswerCommentary ? 'Не может быть пустым' : ''}
 			/>
 		</div>
   {/if}

@@ -22,6 +22,8 @@
 
 		$testQuestions = $testQuestions
 
+		$uiState.triedToSend = true
+
 		// Проверить каждый вопрос на наличие хотя бы одной ошибки
 	}
 

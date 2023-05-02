@@ -7,6 +7,7 @@ export const uiState = writable({
   questionTabVariant: 'b',
   viewVariant: 'sidebar',
   selectedQuestion: 0,
+  triedToSend: false
 });
 
 export const globalData = {
