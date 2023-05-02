@@ -32,7 +32,7 @@
 		item.errors.emptyQuestion = item.question === '' ? true : false;
 
 		if (item.format === 'variants') {
-			item.errors.noVariants = item.variants.every(str => str.text === '') || item.variants.length === 0 ? true : false;
+			item.errors.noVariants = item.variants.every(str => str.text === '') || item.variants.length < 2 ? true : false;
 			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
 		} else if (item.format === 'free'){
 			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
