@@ -1,7 +1,7 @@
 <script>
 	import {slide} from 'svelte/transition'
 	import { flip } from 'svelte/animate';
-	import {globalData, testQuestions} from '../stores/store.js'
+	import {uiState, globalData, testQuestions} from '../stores/store.js'
 	import Button from './Button.svelte'
 	import Icon from './Icon.svelte'
 	import Textarea from './Textarea.svelte'
@@ -13,15 +13,16 @@
 	export let focusedVariant
 	export let questionError = 'test'
 
-	function addVariant() {
-		// Пришлось так
-		let newId
+	function deleteQuestion(i) {
+		$testQuestions.splice(i,1)
+		$testQuestions = $testQuestions
+		$uiState.selectedQuestion = $testQuestions.length - 1
+		$uiState = $uiState
+	}
 
-		if (question.variants.length) {
-			newId = question.variants[question.variants.length - 1].id + 1
-		} else {
-			newId = 0
-		}
+	function addVariant() {
+		// Приходится определять последний айди так, чтобы не было ошибки пока не закончилась анимация
+		let newId = question.variants.length ? question.variants[question.variants.length - 1].id + 1 : 0
 
 		question.variants.push( 
       { 
@@ -29,6 +30,7 @@
 				text: '', 
 				correct: false 
 		})
+
 		question.variants = question.variants
 	}
 
@@ -43,15 +45,20 @@
 <div class="question-card">
 
 	<!-- Header -->
-  <h2 id="question-{i}">
-		{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}` }
-	</h2>
+	<div class="header-wrap">
+		<h2 id="question-{i}">
+			{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}` }
+		</h2>
+		<div class="icon-button" on:click={() => deleteQuestion(i)}>
+			<Icon type="delete" color="var(--gray-500)"/>
+		</div>
+	</div>
   
 	<!-- Question -->
 	<Textarea bind:value={question.question} 
 						placeholder="Текст вопроса" 
 						initialSize="96px" 
-						error={questionError}
+						error={question.errors.emptyQuestion ? 'Введите текст вопроса' : ''}
 	/>
   
 	<!-- Answer type choice -->
@@ -65,8 +72,10 @@
   {#if question.format === 'variants'}
 		<div class="variants-wrap">
 			{#each question.variants as answer, i (answer.id)}
-				<div class="variant" class:focused={focusedVariant === i}
-				transition:slide|local={{duration: 200}}>							
+				<div class="variant" 
+						 class:focused={focusedVariant === i}
+						 transition:slide|local={{duration: 200}}
+				>							
 					<Checkbox bind:checked={answer.correct}/>
 					<Textarea bind:value={answer.text}
 										placeholder="Ответ {i+1}"
@@ -80,7 +89,7 @@
 										wrapCustomCSS="padding-bottom: 12px"
 										error={false}
 					/>
-					<button on:click={() => deleteVariant(i)}>
+					<button on:click={deleteVariant(i)}>
 						<Icon type="trash" color="var(--gray-500)"/>
 					</button>
 			</div>
@@ -120,13 +129,17 @@
 	h2{
     margin-top: -56px;
     padding-top: 56px;
-		font-size: 22px;
-		font-weight: 500;
 		white-space: nowrap; 
 		text-overflow: ellipsis;
 		overflow: hidden;
+		width: 100%;
 	}
 	
+	.header-wrap{
+		display: flex;
+		align-items: center;
+	}
+
 	.variants-wrap{
 		margin-bottom: -16px;
 	}

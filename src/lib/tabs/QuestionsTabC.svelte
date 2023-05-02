@@ -13,17 +13,24 @@
 
 <div class="questions-tab-content">
 	<div class="main">
-		{#key selectedQuestion}
-			<Question bind:question={$testQuestions[$uiState.selectedQuestion]} 
-								bind:i={selectedQuestion}
-			/>
-		{/key}
-	</div>
+		{#if $testQuestions.length > 0}
+			{#key selectedQuestion}
+				<Question bind:question={$testQuestions[$uiState.selectedQuestion]} 
+									bind:i={selectedQuestion}
+				/>
+			{/key}
   			<Button title="Распределить баллы"
 							size="large"
 							--width="100%"
 							on:click={() => $uiState.activeTab = 2}
-			/>
+				/>
+		{:else}
+		<div class="placeholder-wrap">
+			<p>Пока в задании нет вопросов</p>
+			<Button title="Добавить" --width="200px" on:click={addQuestion}/>
+		</div>
+		{/if}
+	</div>
 </div>
 	
 
@@ -34,7 +41,6 @@
     flex-direction: column;
 		align-items: start;
 	}
-	
 	/* TODO: Если точно останется вид по одному вопросу за раз, почистить стили */
 
 	.main{
@@ -47,6 +53,21 @@
 		padding-bottom: 24px;
 	}
 	
+	.placeholder-wrap{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 28px;
+		padding: 48px;
+		background: white;
+		border: 1px solid var(--gray-300);
+		border-radius: 8px;
+	}
+
+	h3 {
+		font-weight: 500;
+	}
+
 	.sidebar{
 		flex-shrink: 0;
 		position: sticky;

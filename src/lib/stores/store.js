@@ -43,7 +43,6 @@ export const testQuestions = writable([
       { id: 0, text: '', correct: false },
       { id: 1, text: '', correct: false },
     ],
-    correctVariants: [],
     freeAnswerCommentary: '',
     score: 1,
     errors: {

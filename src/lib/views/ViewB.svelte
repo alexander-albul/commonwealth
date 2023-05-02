@@ -17,16 +17,20 @@
 
   $: selectedQuestion = $uiState.selectedQuestion
 
-	function checkErrors() {
-		$testQuestions.forEach(item => {
-			item.errors.emptyQuestion = item.question === '' ? true : false;
-      item.errors.noVariants = item.variants.every(str => str === '') || item.variants.length === 0 ? true : false;
-      item.errors.noCorrectVariants = item.correctVariants.length === 0;
-      item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
-			item.errors = item.errors
-		})
+	function checkAllQuestions() {
+		$testQuestions.forEach(item => checkQuestion(item))
 
-		// $testQuestions
+		$testQuestions = $testQuestions
+	}
+
+	function checkQuestion(item) {
+
+		item.errors.emptyQuestion = item.question === '' ? true : false;
+		item.errors.noVariants = item.variants.every(str => str === '') || item.variants.length === 0 ? true : false;
+		item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
+		item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+		item.errors = item.errors
+		$testQuestions = $testQuestions
 	}
 </script>
 
@@ -39,7 +43,7 @@
 			<h2>{$testInfo.title}</h2>
 			<div class="header-buttons">
 				<Button type="outline" title="Сохранить"/>
-				<Button title="Отправить на проверку" on:click={checkErrors}/>
+				<Button title="Отправить на проверку" on:click={checkAllQuestions}/>
 			</div>
 		</div>
 	</div>
@@ -59,12 +63,10 @@
               <button
                 class="sidebar-question"
                 class:active={$uiState.activeTab === 1 && selectedQuestion === i}
-								transition:slide|local={{duration: 300}}
+								transition:slide|local={{duration: 200}}
                 on:click={() => {$uiState.activeTab = 1; $uiState.selectedQuestion = i}}
               >
-                {question.question
-                  ? `${i + 1}. ${question.question}`
-                  : `Вопрос ${i + 1}`}
+                {question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}`}
               </button>
             {/each}
         </div>
@@ -89,6 +91,7 @@
 
   </div>
 </main>
+<pre>{JSON.stringify($uiState, null, 2)}</pre>
 <pre>{JSON.stringify($testQuestions, null, 2)}</pre>
 
 
@@ -183,6 +186,7 @@
     background: white;
 		padding: 12px;
     text-align: left;
+		cursor: pointer;
   }
 
   .sidebar-group{
@@ -208,6 +212,7 @@
 		color: var(--gray-900);
     background: transparent;
     border: none;
+		cursor: pointer;
 	}
 
   .sidebar-item.active,
