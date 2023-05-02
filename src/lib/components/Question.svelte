@@ -1,4 +1,6 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+
 	import {slide} from 'svelte/transition'
 	import { flip } from 'svelte/animate';
 	import {uiState, globalData, testQuestions} from '../stores/store.js'
@@ -12,6 +14,8 @@
   export let i
 	export let focusedVariant
 	export let questionError = 'test'
+
+	const dispatch = createEventDispatcher();
 
 	function deleteQuestion(i) {
 		$testQuestions.splice(i,1)
@@ -75,10 +79,9 @@
 			{#if question.errors.noVariants || question.errors.noCorrectVariants}
 			<div class="answer-error">
 				<Icon type="alert" size="12" stroke="1.25"/>
-				{#if question.errors.noVariants && question.errors.noCorrectVariants}
+				{#if question.errors.noVariants}
 					<p>Укажите хотя бы один ответ</p>
-				{:else}
-					<p>{question.errors.noVariants ? 'Укажите хотя бы один ответ' : ''}</p>
+				{:else if question.errors.noCorrectVariants}
 					<p>{question.errors.noCorrectVariants ? 'Выберите хотя бы один правильный ответ' : ''}</p>
 				{/if}
 			</div>
