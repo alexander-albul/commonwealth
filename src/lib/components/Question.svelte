@@ -60,7 +60,7 @@
 						initialSize="96px" 
 						error={question.errors.emptyQuestion ? 'Введите текст вопроса' : ''}
 	/>
-  
+
 	<!-- Answer type choice -->
 	<SegmentedControl items={globalData.testFormats} 
                     name="format-{i}" 
@@ -69,7 +69,19 @@
   />
 	
 	<!-- Answer variants-->
-  {#if question.format === 'variants'}
+		{#if question.format === 'variants'}
+				{#if question.errors.noVariants || question.errors.noCorrectVariants}
+			<div class="answer-error">
+				<Icon type="alert" size="12" stroke="1.25"/>
+				{#if question.errors.noVariants && question.errors.noCorrectVariants}
+					<p>Укажите хотя бы один ответ</p>
+				{:else}
+					<p>{question.errors.noVariants ? 'Укажите хотя бы один ответ' : ''}</p>
+					<p>{question.errors.noCorrectVariants ? 'Выберите хотя бы один правильный ответ' : ''}</p>
+				{/if}
+			</div>
+		{/if}
+
 		<div class="variants-wrap">
 			{#each question.variants as answer, i (answer.id)}
 				<div class="variant" 
@@ -104,11 +116,11 @@
 	
 	<!-- Free answer -->
   {#if question.format === 'free'}
-  <div class="free-answer-wrap">
-    <Textarea placeholder="Пример правильного ответа, рекомендации по оценке для проверяющего" 
-							initialSize="96px"
-		/>
-  </div>
+		<div class="free-answer-wrap">
+			<Textarea placeholder="Пример правильного ответа, рекомендации по оценке для проверяющего" 
+								initialSize="96px"
+			/>
+		</div>
   {/if}
 
 </div>
@@ -167,6 +179,18 @@
 	.variant.focused{
 		background: white;
     outline: 2px solid black;
+	}
+
+	.answer-error{
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 14px;
+		color: #7f1d1d;
+		background-color: #fef2f2;
+		border: 1px solid #fee2e2;
+		border-radius: 8px;
+		padding: 8px 16px;
 	}
 
 	button{

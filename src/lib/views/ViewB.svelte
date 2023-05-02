@@ -17,18 +17,25 @@
 
   $: selectedQuestion = $uiState.selectedQuestion
 
-	function checkAllQuestions() {
+	function deepCheckAllQuestions() {
 		$testQuestions.forEach(item => checkQuestion(item))
 
 		$testQuestions = $testQuestions
+
+		// Проверить каждый вопрос на наличие хотя бы одной ошибки
 	}
 
 	function checkQuestion(item) {
 
 		item.errors.emptyQuestion = item.question === '' ? true : false;
-		item.errors.noVariants = item.variants.every(str => str === '') || item.variants.length === 0 ? true : false;
-		item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
-		item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+
+		if (item.format === 'variants') {
+			item.errors.noVariants = item.variants.every(str => str.text === '') || item.variants.length === 0 ? true : false;
+			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
+		} else if (item.format === 'free'){
+			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+		}
+
 		item.errors = item.errors
 		$testQuestions = $testQuestions
 	}
@@ -43,7 +50,7 @@
 			<h2>{$testInfo.title}</h2>
 			<div class="header-buttons">
 				<Button type="outline" title="Сохранить"/>
-				<Button title="Отправить на проверку" on:click={checkAllQuestions}/>
+				<Button title="Отправить на проверку" on:click={deepCheckAllQuestions}/>
 			</div>
 		</div>
 	</div>
