@@ -1,8 +1,11 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
 	import Icon from './Icon.svelte'
 	export let checked = false
   export let focused = false
   export let checkSize = "16"
+
+	const dispatch = createEventDispatcher();
 
   function handleFocus() {
     focused = true
@@ -20,6 +23,7 @@
          bind:checked={checked} 
          on:focus={handleFocus}
          on:blur={handleBlur}
+         on:change
   />
   <div class="circle" class:checked class:focused>
     <Icon type={"check"} size={checkSize}/>

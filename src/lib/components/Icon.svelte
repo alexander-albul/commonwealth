@@ -44,3 +44,9 @@
 		<circle cx="6" cy="6" r="5.25"/>
 	</svg>
 {/if}
+
+<style>
+	svg{
+		flex-shrink: 0;
+	}
+</style>

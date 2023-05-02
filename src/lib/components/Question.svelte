@@ -1,6 +1,4 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-
 	import {slide} from 'svelte/transition'
 	import { flip } from 'svelte/animate';
 	import {uiState, globalData, testQuestions} from '../stores/store.js'
@@ -14,8 +12,6 @@
   export let i
 	export let focusedVariant
 	export let questionError = 'test'
-
-	const dispatch = createEventDispatcher();
 
 	function deleteQuestion(i) {
 		$testQuestions.splice(i,1)
@@ -42,6 +38,30 @@
 		question.variants.splice(i, 1);
 		question.variants = question.variants
 	}
+
+	function reCheck() {
+		if ($uiState.triedToSend === false) {
+			return
+		}
+
+		$testQuestions.forEach(item => checkQuestion(item))
+		$testQuestions = $testQuestions
+	}
+
+	function checkQuestion(item) {
+
+		item.errors.emptyQuestion = item.question === '' ? true : false;
+
+		if (item.format === 'variants') {
+			item.errors.noVariants = item.variants.length < 2;
+			item.errors.noVariants = item.variants.filter(variant => variant.text != '').length < 2;
+			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
+		} else if (item.format === 'free'){
+			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+		}
+
+		item.errors = item.errors
+	}
 </script>
 
 
@@ -63,6 +83,7 @@
 						placeholder="Текст вопроса" 
 						initialSize="96px" 
 						error={question.errors.emptyQuestion ? 'Введите текст вопроса' : ''}
+						on:input={reCheck}
 	/>
 
 	<!-- Answer type choice -->
@@ -77,7 +98,7 @@
 			
 			<!-- Error -->
 			{#if question.errors.noVariants || question.errors.noCorrectVariants}
-			<div class="answer-error">
+			<div class="answer-error" transition:slide={{duration: 100}}>
 				<Icon type="alert" size="12" stroke="1.25"/>
 				{#if question.errors.noVariants}
 					<p>Укажите минимум два варианта ответа</p>
@@ -94,12 +115,15 @@
 							class:focused={focusedVariant === i}
 							transition:slide|local={{duration: 200}}
 					>							
-						<Checkbox bind:checked={answer.correct}/>
+						<Checkbox bind:checked={answer.correct} 
+											on:change={reCheck}
+						/>
 						<Textarea bind:value={answer.text}
-											placeholder="Ответ {i+1}"
 											on:focus={() => focusedVariant = i}
 											on:blur={() => focusedVariant = null}
+											on:input={reCheck}
 											borderless
+											placeholder="Ответ {i+1}"
 											resizable={false}
 											initialSize="20px"
 											placeholderColor="var(--gray-600)"

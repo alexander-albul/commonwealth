@@ -1,5 +1,8 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+
 	import {onMount} from 'svelte';
+	import {slide} from 'svelte/transition'
 	import Icon from './Icon.svelte'
 	
 	export let value = '';
@@ -13,8 +16,14 @@
 	export let wrapCustomCSS = '';
 	export let inputCustomCSS = '';
 	
+	const dispatch = createEventDispatcher();
 	let box;
 	
+	function handleInput() {
+		fitHeight(box)
+		dispatch('input')
+	}
+
 	function fitHeight(el) {
 		el.style.minHeight = {initialSize};
   	el.style.minHeight = (el.scrollHeight) + "px";
@@ -30,7 +39,7 @@
 <div class="textarea-wrap" style={wrapCustomCSS}>
 	<textarea bind:this={box} 
 						bind:value 
-						on:input={fitHeight(box)}
+						on:input={handleInput}
 						on:focus
 						on:blur
 						placeholder={placeholder}
@@ -43,7 +52,10 @@
 						style={inputCustomCSS}
 	/>
 	{#if error}
-		<p class="error-wrap" on:click={() => box.focus()}>
+		<p class="error-wrap" 
+				on:click={() => box.focus()}
+				transition:slide={{duration: 200}}
+		>
 			<Icon type="alert" size="12" stroke="1.25"/>
 			<span>{error}</span>
 		</p>

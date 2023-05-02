@@ -3,6 +3,7 @@
 	import {addQuestion} from '../utils/utils.js'
 	import {slide} from 'svelte/transition'
 	import Button from '../components/Button.svelte'
+	import Icon from '../components/Icon.svelte'
 	import Tabs from '../components/Tabs.svelte'
 	import SegmentedControl from '../components/SegmentedControl.svelte'
 	import InfoTabB from '../tabs/InfoTabB.svelte'
@@ -32,15 +33,15 @@
 		item.errors.emptyQuestion = item.question === '' ? true : false;
 
 		if (item.format === 'variants') {
-			item.errors.noVariants = item.variants.every(str => str.text === '') || item.variants.length < 2 ? true : false;
+			item.errors.noVariants = item.variants.length < 2;
+			item.errors.noVariants = item.variants.filter(variant => variant.text != '').length < 2;
 			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
 		} else if (item.format === 'free'){
 			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
 		}
 
 		item.errors = item.errors
-		$testQuestions = $testQuestions
-	}
+	}	
 </script>
 
 
@@ -65,7 +66,9 @@
       <button class="sidebar-item"
               class:active={$uiState.activeTab === 0}
               on:click={() => $uiState.activeTab = 0}
-      >Информация</button>
+      >
+				<span>Информация</span>
+			</button>
       <div class="sidebar-group">
         <div class="sidebar-questions-wrap">
             {#each $testQuestions as question, i}
@@ -75,7 +78,10 @@
 								transition:slide|local={{duration: 200}}
                 on:click={() => {$uiState.activeTab = 1; $uiState.selectedQuestion = i}}
               >
-                {question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}`}
+                <span>{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}`}</span>
+								{#if Object.values(question.errors).includes(true)}
+									<Icon type="alert" size="12" stroke="1.25"/>
+								{/if}
               </button>
             {/each}
         </div>
@@ -212,8 +218,7 @@
     align-items: center;
     gap: 4px;
     width: 100%;
-		padding: 12px 8px;
-    padding-left: 16px;
+		padding: 12px;
 		white-space: nowrap; 
 		text-overflow: ellipsis;
 		overflow: hidden;
@@ -222,6 +227,10 @@
     background: transparent;
     border: none;
 		cursor: pointer;
+	}
+
+	.sidebar-question span{
+		width: 100%;
 	}
 
   .sidebar-item.active,
