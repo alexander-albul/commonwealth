@@ -66,11 +66,9 @@
 	}
 
 	function hideNotification() {
-		console.log(1000)
 		setTimeout(() => {
       notificationHidden = true;
-			console.log(1000)
-    }, 1000);
+    }, 3000);
 	}
 </script>
 
@@ -142,7 +140,7 @@
 		 transition:fade={{duration: 100}}
 >
 	<div class="notification"
-			 in:fly={{y: 20}}
+			 in:fly={{y: 40}}
 			 on:introend={hideNotification}
 	>
 		<span>Проверьте вопросы со знаком<Icon type="alert" size="16" stroke="1"/>, в них есть недоработки</span>
@@ -163,7 +161,7 @@
 		flex-shrink: 0;
 		margin-inline: auto;
 		width: 100%;
-		max-width: 1240px;
+		max-width: 1120px;
 		padding: 28px;
 		transition: padding .3s;
 	}
@@ -293,7 +291,8 @@
 		width: 320px;
 		background-color: white;
 		padding: 24px;
-		border: 1px solid var(--gray-400);
+		background-color: var(--gray-900);
+		color: white;
 		border-radius: 8px;
 		box-shadow: 0 10px 8px rgb(0 0 0 / 0.04), 0 4px 3px rgb(0 0 0 / 0.1);
 		z-index: 99;
