@@ -43,6 +43,7 @@ button {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   font-size: 1rem;
   border: 1px solid;
+  cursor: pointer;
 }
 
 a {

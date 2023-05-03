@@ -111,7 +111,8 @@
 
 	<!-- Answer type choice -->
 	<SegmentedControl items={globalData.testFormats} 
-                    name="format-{i}" 
+                    name="format-{i}"
+										on:change={reCheck}
                     bind:selectedItem={$testQuestions[i].format}
                     --width="350px"
   />
