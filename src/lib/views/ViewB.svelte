@@ -80,7 +80,7 @@
               >
                 <span>{question.question ? `${i + 1}. ${question.question}` : `Вопрос ${i + 1}`}</span>
 								{#if Object.values(question.errors).includes(true)}
-									<Icon type="alert" size="12" stroke="1.25"/>
+									<Icon type="alert" size="16" stroke="1"/>
 								{/if}
               </button>
             {/each}
@@ -106,6 +106,10 @@
 
   </div>
 </main>
+
+<div class="notification">
+	<span>Проверьте вопросы со знаком<Icon type="alert" size="16" stroke="1"/>, в них есть недоработки</span>
+</div>
 
 
 
@@ -236,4 +240,16 @@
     font-weight: 500;
     background: var(--gray-200);
   }
+
+	.notification{
+		width: 320px;
+		background-color: white;
+		padding: 24px;
+		border: 1px solid var(--gray-300);
+		border-radius: 8px;
+	}
+
+	.whitespace-pre{
+		whitespace: pre;
+	}
 </style>

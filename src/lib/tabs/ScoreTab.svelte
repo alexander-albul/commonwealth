@@ -11,6 +11,30 @@
 		sum = $testQuestions.reduce((acc, question) => acc + question.score, 0)
 	}
 
+	function deepCheckAllQuestions() {
+		$testQuestions.forEach(item => checkQuestion(item))
+
+		$testQuestions = $testQuestions
+
+		$uiState.triedToSend = true
+
+		// Проверить каждый вопрос на наличие хотя бы одной ошибки
+	}
+
+	function checkQuestion(item) {
+		item.errors.emptyQuestion = item.question === '' ? true : false;
+
+		if (item.format === 'variants') {
+			item.errors.noVariants = item.variants.length < 2;
+			item.errors.noVariants = item.variants.filter(variant => variant.text != '').length < 2;
+			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
+		} else if (item.format === 'free'){
+			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+		}
+
+		item.errors = item.errors
+	}	
+
 </script>
 
 
@@ -53,7 +77,7 @@
 	<Button title="Отправить на проверку"
 			size="large"
 			--width="100%"
-			on:click={() => $uiState.activeTab = 2}
+			on:click={deepCheckAllQuestions}
 	/>
 
 <!-- <pre>{JSON.stringify($testQuestions, null, 2)}</pre> -->

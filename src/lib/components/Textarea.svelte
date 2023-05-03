@@ -54,7 +54,7 @@
 	{#if error}
 		<p class="error-wrap" 
 				on:click={() => box.focus()}
-				transition:slide={{duration: 200}}
+				transition:slide|local={{duration: 200}}
 		>
 			<Icon type="alert" size="12" stroke="1.25"/>
 			<span>{error}</span>

@@ -3,11 +3,11 @@ import { writable } from 'svelte/store';
 const stored = localStorage.uiState;
 
 export const uiState = writable({
-  activeTab: 1,
+  activeTab: 0,
   questionTabVariant: 'b',
   viewVariant: 'sidebar',
   selectedQuestion: 0,
-  triedToSend: false
+  triedToSend: false,
 });
 
 export const globalData = {

@@ -98,7 +98,7 @@
 			
 			<!-- Error -->
 			{#if question.errors.noVariants || question.errors.noCorrectVariants}
-			<div class="answer-error" transition:slide={{duration: 100}}>
+			<div class="answer-error" transition:slide|local={{duration: 100}}>
 				<Icon type="alert" size="12" stroke="1.25"/>
 				{#if question.errors.noVariants}
 					<p>Укажите минимум два варианта ответа</p>
@@ -147,7 +147,9 @@
 	<!-- Free answer -->
   {#if question.format === 'free'}
 		<div class="free-answer-wrap">
-			<Textarea placeholder="Пример правильного ответа, рекомендации по оценке для проверяющего" 
+			<Textarea placeholder="Пример правильного ответа, рекомендации по оценке для проверяющего"
+								bind:value={question.freeAnswerCommentary}
+								on:input={reCheck}
 								initialSize="96px"
 								error={question.errors.emptyFreeAnswerCommentary ? 'Не может быть пустым' : ''}
 			/>
@@ -215,7 +217,7 @@
 	.answer-error{
 		display: flex;
 		align-items: center;
-		gap: 6px;
+		gap: 8px;
 		font-size: 14px;
 		color: #7f1d1d;
 		background-color: #fef2f2;
