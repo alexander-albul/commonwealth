@@ -106,8 +106,6 @@
 
   </div>
 </main>
-<pre>{JSON.stringify($uiState, null, 2)}</pre>
-<pre>{JSON.stringify($testQuestions, null, 2)}</pre>
 
 
 
