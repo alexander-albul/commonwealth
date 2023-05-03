@@ -160,7 +160,7 @@
 	</div>
 {/if}
 
-<svelte:body style:oferflow={$uiState.sent ? 'hidden' : ''}/>
+<svelte:body style:oferflow={$uiState.sent ? 'hidden' : 'auto'}/>
 
 
 <style>	
