@@ -80,7 +80,7 @@
 			on:click={deepCheckAllQuestions}
 	/>
 
-<!-- <pre>{JSON.stringify($testQuestions, null, 2)}</pre> -->
+
 
 <style>
 	h2{

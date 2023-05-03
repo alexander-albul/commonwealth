@@ -67,7 +67,7 @@
 			<h2>{$testInfo.title}</h2>
 			<div class="header-buttons">
 				<Button type="outline" title="Сохранить черновик"/>
-				<Button title="Отправить на проверку" on:click={deepCheckAllQuestions} disabled={$uiState.sendingBlocked}/>
+				<Button title="Отправить на проверку" on:click={deepCheckAllQuestions}/>
 			</div>
 		</div>
 	</div>
