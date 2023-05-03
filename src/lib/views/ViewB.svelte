@@ -18,14 +18,22 @@
 
   $: selectedQuestion = $uiState.selectedQuestion
 
+	let notificationHidden = false;
+
+
+	// TODO: На кнопку нужно вешать "send", внутри которой есть проверка на ошибки
 	function deepCheckAllQuestions() {
+		if ($uiState.canBeSent){
+			$uiState.sent = true
+			return
+		}
+
 		$testQuestions.forEach(item => checkQuestion(item))
 		$testQuestions = $testQuestions
 
 		$uiState.triedToSend = true
 
 		if ($testQuestions.some(item => hasErrors(item))) {
-			'has errors blyat'
 			$uiState.sendingBlocked = true
 		} else {
 			$uiState.sendingBlocked = false
@@ -55,6 +63,14 @@
 
 	function hasErrors(item){
 		return Object.values(item.errors).some(val => val)
+	}
+
+	function hideNotification() {
+		console.log(1000)
+		setTimeout(() => {
+      notificationHidden = true;
+			console.log(1000)
+    }, 1000);
 	}
 </script>
 
@@ -121,9 +137,14 @@
   </div>
 </main>
 
-{#if $uiState.sendingBlocked}
-<div class="fade-wrap" transition:fade={{duration: 100}}>
-	<div class="notification" transition:fly={{y: 20}}>
+{#if $uiState.sendingBlocked && !notificationHidden}
+<div class="fade-wrap" 
+		 transition:fade={{duration: 100}}
+>
+	<div class="notification"
+			 in:fly={{y: 20}}
+			 on:introend={hideNotification}
+	>
 		<span>Проверьте вопросы со знаком<Icon type="alert" size="16" stroke="1"/>, в них есть недоработки</span>
 	</div>
 </div>
@@ -131,7 +152,7 @@
 
 {#if $uiState.sent}
 	<div class="pop-up-wrap">
-
+		asdad
 	</div>
 {/if}
 
@@ -274,6 +295,8 @@
 		padding: 24px;
 		border: 1px solid var(--gray-400);
 		border-radius: 8px;
+		box-shadow: 0 10px 8px rgb(0 0 0 / 0.04), 0 4px 3px rgb(0 0 0 / 0.1);
+		z-index: 99;
 	}
 
 	.whitespace-pre{
