@@ -32,11 +32,13 @@
 		})
 
 		question.variants = question.variants
+		reCheck()
 	}
 
 	function deleteVariant(i) {
 		question.variants.splice(i, 1);
 		question.variants = question.variants
+		reCheck()
 	}
 
 	function reCheck() {
