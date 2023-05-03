@@ -11,29 +11,55 @@
 		sum = $testQuestions.reduce((acc, question) => acc + question.score, 0)
 	}
 
+	// TODO: На кнопку нужно вешать "send", внутри которой есть проверка на ошибки
 	function deepCheckAllQuestions() {
-		$testQuestions.forEach(item => checkQuestion(item))
+		if ($uiState.canBeSent){
+			$uiState.sent = true
+			return
+		}
 
+		$testQuestions.forEach(item => checkQuestion(item))
 		$testQuestions = $testQuestions
 
 		$uiState.triedToSend = true
 
-		// Проверить каждый вопрос на наличие хотя бы одной ошибки
+		if ($testQuestions.some(item => hasErrors(item))) {
+			$uiState.sendingBlocked = true
+		} else {
+			$uiState.sendingBlocked = false
+			$uiState.canBeSent = true
+		}
 	}
 
 	function checkQuestion(item) {
+
 		item.errors.emptyQuestion = item.question === '' ? true : false;
 
 		if (item.format === 'variants') {
 			item.errors.noVariants = item.variants.length < 2;
 			item.errors.noVariants = item.variants.filter(variant => variant.text != '').length < 2;
 			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
+
+			item.errors.emptyFreeAnswerCommentary = false
 		} else if (item.format === 'free'){
 			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+
+			item.errors.noVariants = false
+			item.errors.noCorrectVariants = false
 		}
 
 		item.errors = item.errors
-	}	
+	}
+
+	function hasErrors(item){
+		return Object.values(item.errors).some(val => val)
+	}
+
+	function hideNotification() {
+		setTimeout(() => {
+      notificationHidden = true;
+    }, 3000);
+	}
 
 </script>
 

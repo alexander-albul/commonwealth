@@ -3,6 +3,7 @@
 	export let type = 'primary'
 	export let size = 'default'
 	export let disabled = false
+	export let customCSS
 </script>
 
 <button
@@ -12,6 +13,7 @@
 	class:white="{type === 'white'}"
 	class:large="{size === 'large'}"
 	disabled={disabled}
+	style={customCSS}
 	on:click
 >
 	{title}

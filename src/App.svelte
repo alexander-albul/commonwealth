@@ -14,7 +14,7 @@
 	<ViewB/>
 {/if}
 
-
+{#if !$uiState.sent}
 <div class="view-settings">
 	<b>Навигация</b>
 	<label>
@@ -39,7 +39,8 @@
 	
 	<button on:click={toggleDebug}>Debug</button>
 </div>
-	
+{/if}
+
 {#if debugShown}
 	<div class="debug">
 		<pre>{JSON.stringify($uiState, null, 2)}</pre>
@@ -79,6 +80,5 @@
     background-color: rgba(255 255 255 / .6);
     border: 1px solid rgba(0 0 0 / .1);
     overflow: auto;
-		z-index: 999;
 	}
 </style>

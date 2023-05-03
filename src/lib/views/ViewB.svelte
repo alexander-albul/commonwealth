@@ -150,10 +150,16 @@
 
 {#if $uiState.sent}
 	<div class="pop-up-wrap">
-		asdad
+		<div class="pop-up">
+			<h2>Задание ушло на модерацию</h2>
+			<p>Проверка займет 2 дня.</p>
+			<p> Отслеживайте ее статус в списке заданий</p>
+			<Button title="К заданиям" on:click={() => location.reload()}/>
+		</div>
 	</div>
 {/if}
 
+<svelte:body style:oferflow={$uiState.sent ? 'hidden' : ''}/>
 
 
 <style>	
@@ -300,5 +306,34 @@
 
 	.whitespace-pre{
 		whitespace: pre;
+	}
+
+	.pop-up-wrap{
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: grid;
+		place-items: center;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(0 0 0 / .4);
+	}
+
+	.pop-up{
+		width: 450px;
+		padding: 36px;
+		text-align: center;
+		background-color: white;
+		border-radius: 8px;
+		box-shadow: 0 10px 8px rgb(0 0 0 / 0.04), 0 4px 3px rgb(0 0 0 / 0.1);
+		z-index: 99999;
+	}
+
+	.pop-up h2{
+		margin-bottom: 16px;
+	}
+
+	.pop-up p{
+		margin-bottom: 32px;
 	}
 </style>
