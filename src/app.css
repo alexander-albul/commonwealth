@@ -3,16 +3,21 @@
 }
 
 :root {
+  --gray-50: #f8fafc;
   --gray-100: #f1f5f9;
   --gray-200: #e2e8f0;
   --gray-300: #cbd5e1;
   --gray-400: #94a3b8;
-  --gray-500: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
   --gray-900: #0f172a;
+  --focus-accent: #ee786b;
 }
 
 html {
-  scrollbar-gutter: stable;
+  /* scrollbar-gutter: stable; */
   scroll-behavior: smooth;
 }
 
@@ -24,7 +29,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   background: var(--gray-100);
-  overflow: auto;
+  overflow: hidden;
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
 }
@@ -38,6 +43,7 @@ button {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   font-size: 1rem;
   border: 1px solid;
+  cursor: pointer;
 }
 
 a {
@@ -48,6 +54,15 @@ h1,
 h2 {
   margin: 0;
   line-height: 110%;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
 }
 
 input,

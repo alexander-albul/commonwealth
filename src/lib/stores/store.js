@@ -1,10 +1,17 @@
 import { writable } from 'svelte/store';
 
+const stored = localStorage.uiState;
+
 export const uiState = writable({
   activeTab: 0,
   questionTabVariant: 'b',
   viewVariant: 'sidebar',
   selectedQuestion: 0,
+  // TODO: Заменить использование triedToSend на sendingBlocked
+  triedToSend: false,
+  sendingBlocked: false,
+  canBeSent: false,
+  sent: false,
 });
 
 export const globalData = {
@@ -37,9 +44,19 @@ export const testQuestions = writable([
   {
     question: '',
     format: 'variants',
-    variants: ['', ''],
-    correctVariants: [],
+    variants: [
+      { id: 0, text: '', correct: false },
+      { id: 1, text: '', correct: false },
+    ],
     freeAnswerCommentary: '',
     score: 1,
+    errors: {
+      emptyQuestion: false,
+      noVariants: false,
+      noCorrectVariants: false,
+      emptyFreeAnswerCommentary: false,
+    },
   },
 ]);
+
+export const errors = writable();

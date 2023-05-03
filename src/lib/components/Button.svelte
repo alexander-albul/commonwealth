@@ -2,6 +2,8 @@
 	export let title = 'Button'
 	export let type = 'primary'
 	export let size = 'default'
+	export let disabled = false
+	export let customCSS
 </script>
 
 <button
@@ -10,6 +12,8 @@
 	class:outline="{type === 'outline'}"
 	class:white="{type === 'white'}"
 	class:large="{size === 'large'}"
+	disabled={disabled}
+	style={customCSS}
 	on:click
 >
 	{title}
@@ -26,6 +30,7 @@
 		border-radius: 8px;
 		cursor: pointer;
 		user-select: none;
+		transition: opacity .15s;
 	}
 	
 	button.primary{
@@ -51,5 +56,9 @@
 	
 	button.large{
 		padding: 12px 16px;
+	}
+
+	button:disabled{
+		opacity: .5;
 	}
 </style>

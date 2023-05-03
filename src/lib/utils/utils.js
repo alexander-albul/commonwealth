@@ -7,10 +7,18 @@ export function addQuestion() {
     {
       question: '',
       format: 'variants',
-      variants: ['', ''],
-      correctVariants: [],
+      variants: [
+        { id: 0, text: '', correct: false },
+        { id: 1, text: '', correct: false },
+      ],
       freeAnswerCommentary: '',
       score: 1,
+      errors: {
+        emptyQuestion: false,
+        noVariants: false,
+        noCorrectVariants: false,
+        emptyFreeAnswerCommentary: false,
+      },
     },
   ]);
 

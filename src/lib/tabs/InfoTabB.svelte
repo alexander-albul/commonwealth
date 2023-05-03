@@ -20,6 +20,8 @@
 		$testInfo.title = titleInput.value
 		titleGeneration = false
 	}
+
+	onMount(generateTitle)
 </script>
 
 

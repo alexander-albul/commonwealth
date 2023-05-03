@@ -13,6 +13,8 @@
 
 </script>
 
+
+
 <div class="segmented-control">
 	{#each items as item, i}
 		<label>
@@ -29,11 +31,13 @@
 	{/each}
 </div>
 
+
+
 <style>
 	.segmented-control{
 		width: var(--width);
 		display: inline-flex;
-		padding: 4px;
+		padding: 2px;
 		border-radius: 8px;
 		background: var(--gray-100);
 		overflow: hidden;
