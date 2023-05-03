@@ -1,7 +1,7 @@
 <script>
 	import {uiState, globalData, testInfo, testQuestions} from '../stores/store.js'
 	import {addQuestion} from '../utils/utils.js'
-	import {slide} from 'svelte/transition'
+	import {fade, fly, slide} from 'svelte/transition'
 	import Button from '../components/Button.svelte'
 	import Icon from '../components/Icon.svelte'
 	import Tabs from '../components/Tabs.svelte'
@@ -20,12 +20,17 @@
 
 	function deepCheckAllQuestions() {
 		$testQuestions.forEach(item => checkQuestion(item))
-
 		$testQuestions = $testQuestions
 
 		$uiState.triedToSend = true
 
-		// Проверить каждый вопрос на наличие хотя бы одной ошибки
+		if ($testQuestions.some(item => hasErrors(item))) {
+			'has errors blyat'
+			$uiState.sendingBlocked = true
+		} else {
+			$uiState.sendingBlocked = false
+			$uiState.canBeSent = true
+		}
 	}
 
 	function checkQuestion(item) {
@@ -36,12 +41,21 @@
 			item.errors.noVariants = item.variants.length < 2;
 			item.errors.noVariants = item.variants.filter(variant => variant.text != '').length < 2;
 			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
+
+			item.errors.emptyFreeAnswerCommentary = false
 		} else if (item.format === 'free'){
 			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+
+			item.errors.noVariants = false
+			item.errors.noCorrectVariants = false
 		}
 
 		item.errors = item.errors
-	}	
+	}
+
+	function hasErrors(item){
+		return Object.values(item.errors).some(val => val)
+	}
 </script>
 
 
@@ -52,8 +66,8 @@
 		<div class="title-wrap">		
 			<h2>{$testInfo.title}</h2>
 			<div class="header-buttons">
-				<Button type="outline" title="Сохранить"/>
-				<Button title="Отправить на проверку" on:click={deepCheckAllQuestions}/>
+				<Button type="outline" title="Сохранить черновик"/>
+				<Button title="Отправить на проверку" on:click={deepCheckAllQuestions} disabled={$uiState.sendingBlocked}/>
 			</div>
 		</div>
 	</div>
@@ -107,9 +121,19 @@
   </div>
 </main>
 
-<div class="notification">
-	<span>Проверьте вопросы со знаком<Icon type="alert" size="16" stroke="1"/>, в них есть недоработки</span>
+{#if $uiState.sendingBlocked}
+<div class="fade-wrap" transition:fade={{duration: 100}}>
+	<div class="notification" transition:fly={{y: 20}}>
+		<span>Проверьте вопросы со знаком<Icon type="alert" size="16" stroke="1"/>, в них есть недоработки</span>
+	</div>
 </div>
+{/if}
+
+{#if $uiState.sent}
+	<div class="pop-up-wrap">
+
+	</div>
+{/if}
 
 
 
@@ -242,10 +266,13 @@
   }
 
 	.notification{
+		position: absolute;
+		right: 16px;
+		bottom: 56px;
 		width: 320px;
 		background-color: white;
 		padding: 24px;
-		border: 1px solid var(--gray-300);
+		border: 1px solid var(--gray-400);
 		border-radius: 8px;
 	}
 

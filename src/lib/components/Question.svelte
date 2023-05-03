@@ -43,9 +43,21 @@
 		if ($uiState.triedToSend === false) {
 			return
 		}
+		deepCheckAllQuestions()
+	}
 
+	function deepCheckAllQuestions() {
 		$testQuestions.forEach(item => checkQuestion(item))
 		$testQuestions = $testQuestions
+
+		$uiState.triedToSend = true
+
+		if ($testQuestions.some(item => hasErrors(item))) {
+			$uiState.sendingBlocked = true
+		} else {
+			$uiState.sendingBlocked = false
+			$uiState.canBeSent = true
+		}
 	}
 
 	function checkQuestion(item) {
@@ -56,11 +68,20 @@
 			item.errors.noVariants = item.variants.length < 2;
 			item.errors.noVariants = item.variants.filter(variant => variant.text != '').length < 2;
 			item.errors.noCorrectVariants = !item.variants.some(variant => variant.correct === true)
+
+			item.errors.emptyFreeAnswerCommentary = false
 		} else if (item.format === 'free'){
 			item.errors.emptyFreeAnswerCommentary = item.freeAnswerCommentary === '' ? true : false;
+
+			item.errors.noVariants = false
+			item.errors.noCorrectVariants = false
 		}
 
 		item.errors = item.errors
+	}
+
+	function hasErrors(item){
+		return Object.values(item.errors).some(val => val)
 	}
 </script>
 

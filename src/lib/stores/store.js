@@ -7,7 +7,11 @@ export const uiState = writable({
   questionTabVariant: 'b',
   viewVariant: 'sidebar',
   selectedQuestion: 0,
+  // TODO: Заменить использование triedToSend на sendingBlocked
   triedToSend: false,
+  sendingBlocked: false,
+  canBeSent: false,
+  sent: false,
 });
 
 export const globalData = {
