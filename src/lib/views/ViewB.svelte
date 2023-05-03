@@ -37,7 +37,8 @@
 			$uiState.sendingBlocked = true
 		} else {
 			$uiState.sendingBlocked = false
-			$uiState.canBeSent = true
+			// У кнопки отправки sent, в других местах canBeSent 
+			$uiState.sent = true
 		}
 	}
 
@@ -159,7 +160,7 @@
 	</div>
 {/if}
 
-<svelte:body style:oferflow={$uiState.sent ? 'hidden' : ''}/>
+<svelte:body style:oferflow={$uiState.sent ? 'hidden' : 'auto'}/>
 
 
 <style>	

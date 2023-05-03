@@ -48,7 +48,13 @@
 		deepCheckAllQuestions()
 	}
 
+	// TODO: Оставить только чек полей
 	function deepCheckAllQuestions() {
+		if ($uiState.canBeSent){
+			$uiState.sent = true
+			return
+		}
+
 		$testQuestions.forEach(item => checkQuestion(item))
 		$testQuestions = $testQuestions
 
@@ -84,6 +90,12 @@
 
 	function hasErrors(item){
 		return Object.values(item.errors).some(val => val)
+	}
+
+	function hideNotification() {
+		setTimeout(() => {
+      notificationHidden = true;
+    }, 3000);
 	}
 </script>
 
